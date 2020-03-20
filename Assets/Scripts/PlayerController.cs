@@ -6,20 +6,25 @@ public class PlayerController : MonoBehaviour {
   
   private Vector3 direction;
   public float speed;
+  public int hydrantQtd;
+  public GameObject hydrantPrefab;
 
   KeyCode upKey;
   KeyCode downKey;
   KeyCode leftKey;
   KeyCode rightKey;
+  KeyCode hydrantKey;
 
   private void Start() {
     upKey = KeyCode.UpArrow;
     downKey = KeyCode.DownArrow;
     leftKey = KeyCode.LeftArrow;
     rightKey = KeyCode.RightArrow;
+    hydrantKey = KeyCode.Space;
 
     speed = 0.1f;
     direction = Vector3.zero;
+    hydrantQtd = 1;
   }
 
   private void FixedUpdate() {
@@ -37,6 +42,19 @@ public class PlayerController : MonoBehaviour {
     }
     else direction = Vector3.zero;
 
+    if (Input.GetKeyDown(hydrantKey)) {
+      if (hydrantQtd > 0) {
+        hydrantQtd--;
+        GameObject hydrant = Instantiate<GameObject>(hydrantPrefab);
+        hydrant.transform.position = transform.position + new Vector3(0, 0, 0.5f);
+        hydrant.GetComponent<HydrantController>().SetOwner(this);
+      }
+    }
+
     transform.position += direction * speed;
+  }
+
+  public void IncreaseHydrantQtd(int qtd = 1) {
+    hydrantQtd += qtd;
   }
 }
