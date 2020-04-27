@@ -43,12 +43,7 @@ public class PlayerController : MonoBehaviour {
     else direction = Vector3.zero;
 
     if (Input.GetKeyDown(hydrantKey)) {
-      if (hydrantQtd > 0) {
-        hydrantQtd--;
-        GameObject hydrant = Instantiate<GameObject>(hydrantPrefab);
-        hydrant.transform.position = transform.position + new Vector3(0, 0, 0.5f);
-        hydrant.GetComponent<HydrantController>().SetOwner(this);
-      }
+      PlaceHydrant();
     }
 
     transform.position += direction * speed;
@@ -56,5 +51,14 @@ public class PlayerController : MonoBehaviour {
 
   public void IncreaseHydrantQtd(int qtd = 1) {
     hydrantQtd += qtd;
+  }
+
+  private void PlaceHydrant() {
+    if (hydrantQtd > 0) {
+      hydrantQtd--;
+      GameObject hydrant = Instantiate<GameObject>(hydrantPrefab);
+      hydrant.transform.position = GameManager.Instance.GetGridPosition(transform.position) + new Vector3(0, 0, 0.5f);
+      hydrant.GetComponent<HydrantController>().SetOwner(this);
+    }
   }
 }
