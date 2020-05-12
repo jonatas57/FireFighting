@@ -97,6 +97,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 0
   hydrantQtd: 0
+  waterLength: 0
   hydrantPrefab: {fileID: 5571698552806699983, guid: 169944a6c4f42dc59aeb4e74abfb77cf,
     type: 3}
 --- !u!61 &-4114737079052276169

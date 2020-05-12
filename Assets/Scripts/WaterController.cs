@@ -4,30 +4,38 @@ using UnityEngine;
 
 public class WaterController : MonoBehaviour {
 
-    public float progress;
-    public int d_x;
-    public int d_y;
-    public float speed;
+  public float progress;
+  public int d_x;
+  public int d_y;
+  public float speed;
+  public int maxLength;
 
 
-    void Start() {
-        progress = 0.0f;
-        speed = 2.0f;
-        this.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+  void Start() {
+    progress = 0.0f;
+    speed = 2f;
+    transform.localScale = Vector3.one;
+  }
+
+  public void SetDirection(int d_x, int d_y){
+    this.d_x = d_x;
+    this.d_y = d_y;
+  }
+
+  public void SetMaxLength(int ml) {
+    maxLength = ml;
+  }
+
+  private void FixedUpdate() {
+    progress += 2.0f;
+    if(progress < 100.0f) {
+      Vector3 xAxis = Mathf.Clamp(transform.localScale.x + d_x * speed, 0, maxLength) * Vector3.right;
+      Vector3 yAxis = Mathf.Clamp(transform.localScale.y + d_y * speed, 0, maxLength) * Vector3.up;
+      transform.localScale = xAxis + yAxis;
     }
+  }
 
-    public void Set_info(int d_x, int d_y){
-        this.d_x = d_x;
-        this.d_y = d_y;
-    }
-
-    private void FixedUpdate() {
-        Vector3 right = new Vector3(0.1f, 0.0f, 0.0f);
-        Vector3 up = new Vector3(0.0f, 0.1f, 0.0f);
-        progress += 2.0f;
-        if(progress < 100.0f){
-            this.transform.localScale += ((float) d_x) * right * speed;
-            this.transform.localScale += ((float) d_y) * up * speed;
-        }
-    }
+  public bool isHorizontal() {
+    return d_x != 0;
+  }
 }

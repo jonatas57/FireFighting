@@ -18,6 +18,7 @@ public class GameManager : MonoBehaviour {
 
   private TileType[][] board;
   private int boardSize;
+  public float waterForce;
 
   public static GameManager Instance {
     get {

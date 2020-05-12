@@ -330,3 +330,4 @@ MonoBehaviour:
     type: 3}
   holePrefab: {fileID: 1196931883944921276, guid: b2ab77e56a0a87e58ba973a663246467,
     type: 3}
+  waterForce: 2.89
