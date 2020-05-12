@@ -28,13 +28,13 @@ public class GameManager : MonoBehaviour {
 
   // Start is called before the first frame update
   void Start() {
-    for(int i=0; i < 2; i++){
+    Vector3 size = new Vector3(21, 21, 0);
+    xAxis = size.x * Vector3.right;
+    yAxis = size.y * Vector3.up;
+    for(int i=0; i < 2; i++) {
         GameObject playerObject = Instantiate<GameObject>(playerPrefab);
         playerObject.GetComponent<PlayerController>().SetButtons(i);
-        Vector3 size = playerObject.GetComponent<SpriteRenderer>().sprite.bounds.size;
-        xAxis = size.x * Vector3.right;
-        yAxis = size.y * Vector3.up;
-        playerObject.transform.position = GridToVectorPosition(0, 0);
+        playerObject.transform.position = GridToVectorPosition(1, 1);
     }
   }
 
@@ -44,12 +44,17 @@ public class GameManager : MonoBehaviour {
   }
 
   public Vector3 GridToVectorPosition(int i, int j) {
-    return (-5.5f + i) * xAxis + (5.5f - j) * yAxis;
+    return (-6.5f + i) * xAxis + (6.5f - j) * yAxis;
+  }
+
+  public Vector2Int VectorToGridPosition(Vector3 pos) {
+    int i = Mathf.RoundToInt(pos.x / xAxis.x + 6.5f);
+    int j = Mathf.RoundToInt(6.5f - pos.y / yAxis.y);
+    return new Vector2Int(i, j);
   }
 
   public Vector3 GetGridPosition(Vector3 pos) {
-    int i = Mathf.RoundToInt(pos.x / xAxis.x + 5.5f);
-    int j = Mathf.RoundToInt(5.5f - pos.y / yAxis.y);
-    return GridToVectorPosition(i, j);
+    Vector2Int gridPos = VectorToGridPosition(pos);
+    return GridToVectorPosition(gridPos.x, gridPos.y);
   }
 }

@@ -16,7 +16,7 @@ public class PlayerController : MonoBehaviour {
   KeyCode hydrantKey;
 
   private void Start() {
-    speed = 0.1f;
+    speed = 1f;
     direction = Vector3.zero;
     hydrantQtd = 1;
   }
