@@ -63,10 +63,10 @@ public class GameManager : MonoBehaviour {
       }
     }
 
-    for(int i=0; i < 1; i++) {
+    for(int i=0; i < 2; i++) {
       GameObject playerObject = Instantiate<GameObject>(playerPrefab);
       playerObject.GetComponent<PlayerController>().SetButtons(i);
-      playerObject.transform.position = GridToVectorPosition(1, 1);
+      playerObject.transform.position = GameManager.Instance.GridToVectorPosition(i == 0 ? 1 : 12, i == 0 ? 1 : 12);
     }
   }
 
@@ -88,5 +88,13 @@ public class GameManager : MonoBehaviour {
   public Vector3 GetGridPosition(Vector3 pos) {
     Vector2Int gridPos = VectorToGridPosition(pos);
     return GridToVectorPosition(gridPos.x, gridPos.y);
+  }
+
+  public void SetTile(int i, int j, TileType tile) {
+    board[i][j] = tile;
+  }
+
+  public bool isFree(int i, int j) {
+    return board[i][j] == TileType.FREE;
   }
 }

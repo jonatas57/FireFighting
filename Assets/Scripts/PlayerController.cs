@@ -65,9 +65,11 @@ public class PlayerController : MonoBehaviour {
   }
 
   private void PlaceHydrant() {
-    if (hydrantQtd > 0) {
+    Vector2Int gridPos = GameManager.Instance.VectorToGridPosition(transform.position);
+    if (hydrantQtd > 0 && GameManager.Instance.isFree(gridPos.x, gridPos.y)) {
       hydrantQtd--;
       GameObject hydrant = Instantiate<GameObject>(hydrantPrefab);
+      GameManager.Instance.SetTile(gridPos.x, gridPos.y, TileType.HYDRANT);
       hydrant.transform.position = GameManager.Instance.GetGridPosition(transform.position) + new Vector3(0, 0, 0.5f);
       hydrant.GetComponent<HydrantController>().SetOwner(this);
     }

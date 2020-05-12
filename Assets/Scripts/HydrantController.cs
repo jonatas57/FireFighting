@@ -62,6 +62,8 @@ public class HydrantController : MonoBehaviour
     private void Explode()
     {
         owner.IncreaseHydrantQtd();
+        Vector2Int gridPos = GameManager.Instance.VectorToGridPosition(transform.position);
+        GameManager.Instance.SetTile(gridPos.x, gridPos.y, TileType.FREE);
         for (int i = 0; i < 4; i++) Destroy(water[i]);
         Destroy(gameObject);
     }
