@@ -28,11 +28,14 @@ public class GameManager : MonoBehaviour {
 
   // Start is called before the first frame update
   void Start() {
-    GameObject playerObject = Instantiate<GameObject>(playerPrefab);
-    Vector3 size = playerObject.GetComponent<SpriteRenderer>().sprite.bounds.size;
-    xAxis = size.x * Vector3.right;
-    yAxis = size.y * Vector3.up;
-    playerObject.transform.position = GridToVectorPosition(0, 0);
+    for(int i=0; i < 2; i++){
+        GameObject playerObject = Instantiate<GameObject>(playerPrefab);
+        playerObject.GetComponent<PlayerController>().SetButtons(i);
+        Vector3 size = playerObject.GetComponent<SpriteRenderer>().sprite.bounds.size;
+        xAxis = size.x * Vector3.right;
+        yAxis = size.y * Vector3.up;
+        playerObject.transform.position = GridToVectorPosition(0, 0);
+    }
   }
 
   // Update is called once per frame

@@ -16,15 +16,26 @@ public class PlayerController : MonoBehaviour {
   KeyCode hydrantKey;
 
   private void Start() {
-    upKey = KeyCode.UpArrow;
-    downKey = KeyCode.DownArrow;
-    leftKey = KeyCode.LeftArrow;
-    rightKey = KeyCode.RightArrow;
-    hydrantKey = KeyCode.Space;
-
     speed = 0.1f;
     direction = Vector3.zero;
     hydrantQtd = 1;
+  }
+
+  public void SetButtons(int id_player){
+        if(id_player == 0){
+            upKey = KeyCode.UpArrow;
+            downKey = KeyCode.DownArrow;
+            leftKey = KeyCode.LeftArrow;
+            rightKey = KeyCode.RightArrow;
+            hydrantKey = KeyCode.Space;
+        }
+        else{
+            upKey = KeyCode.W;
+            downKey = KeyCode.S;
+            leftKey = KeyCode.A;
+            rightKey = KeyCode.D;
+            hydrantKey = KeyCode.X;
+        }
   }
 
   private void FixedUpdate() {
