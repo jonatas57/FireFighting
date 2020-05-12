@@ -64,6 +64,7 @@ public class PlayerController : MonoBehaviour {
     hydrantQtd += qtd;
   }
 
+
   private void PlaceHydrant() {
     if (hydrantQtd > 0) {
       hydrantQtd--;

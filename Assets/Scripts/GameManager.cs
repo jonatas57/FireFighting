@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour {
   private Vector3 yAxis;
   public GameObject playerPrefab;
   public GameObject firePrefab;
+  public GameObject bonusPrefab;
 
   public static GameManager Instance {
     get {
@@ -29,6 +30,8 @@ public class GameManager : MonoBehaviour {
 
   // Start is called before the first frame update
   void Start() {
+    GameObject bonusObject = Instantiate<GameObject>(bonusPrefab);
+    bonusObject.transform.position = new Vector3(1.0f, 1.0f, 0.0f);
     GameObject fireObject = Instantiate<GameObject>(firePrefab);
     fireObject.transform.position = new Vector3(0.0f, 0.0f, 0.0f);
     for(int i=0; i < 2; i++){
