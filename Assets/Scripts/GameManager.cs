@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour {
   private Vector3 xAxis;
   private Vector3 yAxis;
   public GameObject playerPrefab;
+  public GameObject firePrefab;
 
   public static GameManager Instance {
     get {
@@ -28,6 +29,8 @@ public class GameManager : MonoBehaviour {
 
   // Start is called before the first frame update
   void Start() {
+    GameObject fireObject = Instantiate<GameObject>(firePrefab);
+    fireObject.transform.position = new Vector3(0.0f, 0.0f, 0.0f);
     for(int i=0; i < 2; i++){
         GameObject playerObject = Instantiate<GameObject>(playerPrefab);
         playerObject.GetComponent<PlayerController>().SetButtons(i);
