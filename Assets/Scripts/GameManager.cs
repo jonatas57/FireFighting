@@ -66,7 +66,10 @@ public class GameManager : MonoBehaviour
                 {
                     board[i][j] = TileType.HOLE;
                 }
-                else if (Random.Range(0, 3) <= 1) board[i][j] = TileType.FIRE;
+                else if ((i <= 2 || i >= boardSize - 1) && (j <= 2 || j >= boardSize - 1)) {
+                  board[i][j] = TileType.FREE;
+                }
+                else if (Random.Range(0, 5) <= 3) board[i][j] = TileType.FIRE;
                 else board[i][j] = TileType.FREE;
             }
         }
