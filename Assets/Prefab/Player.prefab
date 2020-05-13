@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 9198721394672907376}
   - component: {fileID: 9198721394672907391}
   - component: {fileID: 9198721394672907390}
-  - component: {fileID: -4114737079052276169}
+  - component: {fileID: 1495656058856299654}
   - component: {fileID: 9223227365491140005}
   m_Layer: 0
   m_Name: Player
@@ -100,8 +100,8 @@ MonoBehaviour:
   waterLength: 0
   hydrantPrefab: {fileID: 5571698552806699983, guid: 169944a6c4f42dc59aeb4e74abfb77cf,
     type: 3}
---- !u!61 &-4114737079052276169
-BoxCollider2D:
+--- !u!60 &1495656058856299654
+PolygonCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -123,9 +123,16 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 0.5, y: 0.5}
-  m_EdgeRadius: 10.1
+  m_Points:
+    m_Paths:
+    - - {x: -10.5, y: 7}
+      - {x: -7, y: 10.5}
+      - {x: 7, y: 10.5}
+      - {x: 10.5, y: 7}
+      - {x: 10.5, y: -7}
+      - {x: 7, y: -10.5}
+      - {x: -7, y: -10.5}
+      - {x: -10.5, y: -7}
 --- !u!50 &9223227365491140005
 Rigidbody2D:
   serializedVersion: 4
