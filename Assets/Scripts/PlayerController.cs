@@ -17,13 +17,16 @@ public class PlayerController : MonoBehaviour {
   KeyCode leftKey;
   KeyCode rightKey;
   KeyCode hydrantKey;
+
+  Rigidbody2D rigidbody;
   
   private void Start() {
-    speed = 1f;
+    speed = 50;
     direction = Vector3.zero;
     hydrantQtd = 1;
     waterLength = 2;
     pulledByWater = false;
+    rigidbody = GetComponent<Rigidbody2D>();
   }
 
   public void SetButtons(int id_player) {
@@ -45,7 +48,7 @@ public class PlayerController : MonoBehaviour {
 
   private void FixedUpdate() {
     if (pulledByWater) {
-      transform.position += direction;
+      rigidbody.velocity = direction * GameManager.Instance.waterForce;
       waterTime -= Time.deltaTime;
       if (waterTime < 0) pulledByWater = false;
     }
@@ -68,7 +71,7 @@ public class PlayerController : MonoBehaviour {
         PlaceHydrant();
       }
 
-      transform.position += direction * speed;
+      rigidbody.velocity = direction * speed;
     }
   }
 

@@ -95,7 +95,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29749b54b298725b295847e3f82ffddb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 0
+  speed: 50
   hydrantQtd: 0
   waterLength: 0
   hydrantPrefab: {fileID: 5571698552806699983, guid: 169944a6c4f42dc59aeb4e74abfb77cf,
