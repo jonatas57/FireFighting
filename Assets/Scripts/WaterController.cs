@@ -26,7 +26,12 @@ public class WaterController : MonoBehaviour {
     maxLength = ml;
   }
 
-  private void FixedUpdate() {
+    public void OnTriggerEnter2D(Collider2D collision)
+    {
+       if(collision.gameObject.name == "Fire(Clone)") Destroy(collision.gameObject);
+    }
+
+    private void FixedUpdate() {
     progress += 2.0f;
     if(progress < 100.0f) {
       Vector3 xAxis = Mathf.Clamp(transform.localScale.x + d_x * speed, 0, maxLength) * Vector3.right;
