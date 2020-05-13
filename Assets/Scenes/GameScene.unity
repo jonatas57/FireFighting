@@ -328,10 +328,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerPrefab: {fileID: 9198721394672907377, guid: 7e0883397b17321d4ad18f95481a7e86,
     type: 3}
+  holePrefab: {fileID: 1196931883944921276, guid: b2ab77e56a0a87e58ba973a663246467,
+    type: 3}
   firePrefab: {fileID: 2217295484694937022, guid: 8e4d173849ed84c549ffc3b3b0a974b5,
     type: 3}
   bonusPrefab: {fileID: 1060725507725401844, guid: d8438c222048f4c12b9f5809870b4cde,
-    type: 3}
-  holePrefab: {fileID: 1196931883944921276, guid: b2ab77e56a0a87e58ba973a663246467,
     type: 3}
   waterForce: 2.89
