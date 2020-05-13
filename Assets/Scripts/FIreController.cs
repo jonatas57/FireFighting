@@ -19,20 +19,20 @@ public class FIreController : MonoBehaviour
 
     }
 
-    public void OnCollisionEnter2D(Collision2D collision)
+    public void OnTriggerEnter2D(Collider2D other)
     {
-        if (collision.gameObject.name == "Water(Clone)")
+        if (other.CompareTag("Water"))
         {
             if (Random.Range(0, 5) <= 1)
             {
-                Destroy(collision.gameObject);
-                Destroy(gameObject);
                 GameObject bonusObject = Instantiate<GameObject>(bonusPrefab);
                 bonusObject.transform.position = transform.position;
-                
             }
             else Destroy(gameObject);
             
+            Vector2Int pos = GameManager.Instance.VectorToGridPosition(transform.position);
+            GameManager.Instance.SetTile(pos, TileType.FREE);
+            Destroy(gameObject);
         }
     }
 

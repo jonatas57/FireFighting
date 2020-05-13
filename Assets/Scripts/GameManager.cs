@@ -129,6 +129,10 @@ public class GameManager : MonoBehaviour
     board[i][j] = tile;
   }
 
+  public void SetTile(Vector2Int pos, TileType tile) {
+    SetTile(pos.x, pos.y, tile);
+  }
+
   public TileType GetTile(Vector2Int gridPos)
   {
     return board[gridPos.x][gridPos.y];
