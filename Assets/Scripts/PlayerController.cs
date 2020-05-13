@@ -102,4 +102,14 @@ public class PlayerController : MonoBehaviour {
       direction = direction.normalized * GameManager.Instance.waterForce;
     }
   }
+
+  private void OnTriggerStay2D(Collider2D other) {
+    if (other.CompareTag("Hole") && GameManager.Instance.CheckPosition(transform.position, TileType.HOLE)) {
+      Die();
+    }
+  }
+
+  private void Die() {
+    Destroy(gameObject);
+  }
 }

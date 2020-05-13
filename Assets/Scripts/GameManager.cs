@@ -99,6 +99,14 @@ public class GameManager : MonoBehaviour {
     board[i][j] = tile;
   }
 
+  public TileType GetTile(Vector2Int gridPos) {
+    return board[gridPos.x][gridPos.y];
+  }
+
+  public bool CheckPosition(Vector3 pos, TileType tile) {
+    return GetTile(VectorToGridPosition(pos)) == tile;
+  }
+
   public bool isFree(int i, int j) {
     return board[i][j] == TileType.FREE;
   }
