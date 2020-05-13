@@ -26,10 +26,6 @@ public class WaterController : MonoBehaviour {
     maxLength = ml;
   }
 
-    public void OnTriggerEnter2D(Collider2D collision)
-    {
-       if(collision.gameObject.name == "Fire(Clone)") Destroy(collision.gameObject);
-    }
 
     private void FixedUpdate() {
     progress += 2.0f;

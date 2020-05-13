@@ -23,12 +23,16 @@ public class FIreController : MonoBehaviour
     {
         if (collision.gameObject.name == "Water(Clone)")
         {
-            if (Random.Range(0, 3) <= 1)
+            if (Random.Range(0, 5) <= 1)
             {
+                Destroy(collision.gameObject);
+                Destroy(gameObject);
                 GameObject bonusObject = Instantiate<GameObject>(bonusPrefab);
                 bonusObject.transform.position = transform.position;
+                
             }
-            Destroy(gameObject);
+            else Destroy(gameObject);
+            
         }
     }
 
