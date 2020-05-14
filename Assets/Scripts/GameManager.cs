@@ -48,6 +48,10 @@ public class GameManager : MonoBehaviour
     instance = this;
   }
 
+	public void Test() {
+		Debug.Log("OK");
+	}
+
   // Start is called before the first frame update
   void Start()
   {
