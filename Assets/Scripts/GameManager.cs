@@ -51,6 +51,7 @@ public class GameManager : MonoBehaviour
   // Start is called before the first frame update
   void Start()
   {
+    waterForce = 15.0f;
     Vector3 size = new Vector3(21, 21, 0);
     xAxis = size.x * Vector3.right;
     yAxis = size.y * Vector3.up;
