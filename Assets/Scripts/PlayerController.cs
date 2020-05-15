@@ -110,6 +110,10 @@ public class PlayerController : MonoBehaviour {
         IncreaseHydrantQtd();
         break;
 
+        case BonusType.INCREASE_WATER:
+        waterLength++;
+        break;
+
         default:
         break;
       }

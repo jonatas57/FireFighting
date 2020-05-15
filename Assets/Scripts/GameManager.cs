@@ -95,9 +95,9 @@ public class GameManager : MonoBehaviour
       }
     }
 
-    for (int i = 0;i < 10;i++) {
+    for (int i = 0;i < 20;i++) {
       int x = Random.Range(0, fireBlocks.Count - 1);
-      fireBlocks[x].GetComponent<FIreController>().AddBonus(BonusType.INCREASE_HYDRANT);
+      fireBlocks[x].GetComponent<FireController>().AddBonus(i < 10 ? BonusType.INCREASE_HYDRANT : BonusType.INCREASE_WATER);
       fireBlocks.RemoveAt(x);
     }
 

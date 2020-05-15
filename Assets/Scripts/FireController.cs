@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FIreController : MonoBehaviour
+public class FireController : MonoBehaviour
 {
 
     public GameObject bonusPrefab;

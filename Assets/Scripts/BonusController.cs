@@ -4,7 +4,8 @@ using UnityEngine;
 
 public enum BonusType {
     NONE,
-    INCREASE_HYDRANT
+    INCREASE_HYDRANT,
+    INCREASE_WATER
 }
 
 public class BonusController : MonoBehaviour {
