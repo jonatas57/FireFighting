@@ -2,7 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum BonusType {
+    NONE,
+    INCREASE_HYDRANT
+}
+
 public class BonusController : MonoBehaviour {
+
+  private BonusType bonusType;
+
   // Start is called before the first frame update
   void Start() {
 
@@ -13,10 +21,11 @@ public class BonusController : MonoBehaviour {
 
   }
 
-  public void OnTriggerEnter2D(Collider2D collision) {
-    if (collision.gameObject.name == "Player(Clone)") {
-      collision.gameObject.GetComponent<PlayerController>().IncreaseHydrantQtd();
-      Destroy(gameObject);
-    }
+  public void SetBonusType(BonusType type) {
+    bonusType = type;
+  }
+
+  public BonusType GetBonusType() {
+    return bonusType;
   }
 }

@@ -18,7 +18,7 @@ public class PlayerController : MonoBehaviour {
   KeyCode rightKey;
   KeyCode hydrantKey;
 
-  Rigidbody2D rigidbody;
+  Rigidbody2D rb;
   
   private void Start() {
     speed = 50;
@@ -26,7 +26,7 @@ public class PlayerController : MonoBehaviour {
     hydrantQtd = 1;
     waterLength = 2;
     pulledByWater = false;
-    rigidbody = GetComponent<Rigidbody2D>();
+    rb = GetComponent<Rigidbody2D>();
   }
 
   public void SetButtons(int id_player) {
@@ -48,7 +48,7 @@ public class PlayerController : MonoBehaviour {
 
   private void FixedUpdate() {
     if (pulledByWater) {
-      rigidbody.velocity = direction * GameManager.Instance.waterForce;
+      rb.velocity = direction * GameManager.Instance.waterForce;
       waterTime -= Time.deltaTime;
       if (waterTime < 0) pulledByWater = false;
     }
@@ -71,7 +71,7 @@ public class PlayerController : MonoBehaviour {
         PlaceHydrant();
       }
 
-      rigidbody.velocity = direction * speed;
+      rb.velocity = direction * speed;
     }
   }
 
@@ -103,6 +103,17 @@ public class PlayerController : MonoBehaviour {
         direction += Vector3.up * (transform.position.y - other.transform.position.y);
       }
       direction = direction.normalized * GameManager.Instance.waterForce;
+    }
+    else if (other.CompareTag("Bonus")) {
+      switch (other.GetComponent<BonusController>().GetBonusType()) {
+        case BonusType.INCREASE_HYDRANT:
+        IncreaseHydrantQtd();
+        break;
+
+        default:
+        break;
+      }
+      Destroy(other.gameObject);
     }
   }
 
