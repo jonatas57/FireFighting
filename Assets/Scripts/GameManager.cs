@@ -51,7 +51,7 @@ public class GameManager : MonoBehaviour
         DontDestroyOnLoad(this);
     }
 
-	public void Test() {
+	public void RestartGame() {
 		SceneManager.LoadScene("GameScene");
 	}
 
@@ -84,6 +84,7 @@ public class GameManager : MonoBehaviour
       }
     }
 
+    List<GameObject> fireBlocks = new List<GameObject>();
     for (int i = 0; i < boardSize + 2; i++)
     {
       for (int j = 0; j < boardSize + 2; j++)
@@ -97,8 +98,15 @@ public class GameManager : MonoBehaviour
         {
           GameObject fire = Instantiate<GameObject>(firePrefab);
           fire.transform.position = GridToVectorPosition(i, j);
+          fireBlocks.Add(fire);
         }
       }
+    }
+
+    for (int i = 0;i < 20;i++) {
+      int x = Random.Range(0, fireBlocks.Count - 1);
+      fireBlocks[x].GetComponent<FireController>().AddBonus(i < 10 ? BonusType.INCREASE_HYDRANT : BonusType.INCREASE_WATER);
+      fireBlocks.RemoveAt(x);
     }
 
     for (int i = 0; i < 2; i++)
