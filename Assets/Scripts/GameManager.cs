@@ -24,7 +24,7 @@ public class GameManager : MonoBehaviour
 
 
   private TileType[][] board;
-  private int boardSize;
+  public int boardSize;
   public float waterForce;
   public int id_winner;
 
@@ -41,88 +41,41 @@ public class GameManager : MonoBehaviour
   }
 
   void Awake()
+  {
+    if (instance != null)
     {
-        if (instance != null)
-        {
-            DestroyImmediate(this);
-            return;
-        }
-        instance = this;
-        DontDestroyOnLoad(this);
+      DestroyImmediate(this);
+      return;
     }
+    instance = this;
+    DontDestroyOnLoad(this);
+  }
 
-	public void RestartGame() {
-		SceneManager.LoadScene("GameScene");
-	}
+  void Start() {
+    NewGame();
+  }
 
-  // Start is called before the first frame update
-  void Start()
+  void Update() {
+  }
+
+  public void NewGame()
+  {
+    SceneManager.LoadScene("GameScene");
+  }
+
+  public void ResetLevel()
   {
     id_winner = -1;
     waterForce = 15.0f;
-    Vector3 size = new Vector3(21, 21, 0);
-    xAxis = size.x * Vector3.right;
-    yAxis = size.y * Vector3.up;
-
+    xAxis = 21 * Vector3.right;
+    yAxis = 21 * Vector3.up;
     boardSize = 12;
+
     board = new TileType[boardSize + 2][];
     for (int i = 0; i < boardSize + 2; i++)
     {
       board[i] = new TileType[boardSize + 2];
-      for (int j = 0; j < boardSize + 2; j++)
-      {
-        if (i == 0 || j == 0 || i == boardSize + 1 || j == boardSize + 1)
-        {
-          board[i][j] = TileType.HOLE;
-        }
-        else if ((i <= 2 || i >= boardSize - 1) && (j <= 2 || j >= boardSize - 1))
-        {
-          board[i][j] = TileType.FREE;
-        }
-        else if (Random.Range(0, 5) <= 3) board[i][j] = TileType.FIRE;
-        else board[i][j] = TileType.FREE;
-      }
     }
-
-    List<GameObject> fireBlocks = new List<GameObject>();
-    for (int i = 0; i < boardSize + 2; i++)
-    {
-      for (int j = 0; j < boardSize + 2; j++)
-      {
-        if (board[i][j] == TileType.HOLE)
-        {
-          GameObject hole = Instantiate<GameObject>(holePrefab);
-          hole.transform.position = GridToVectorPosition(i, j);
-        }
-        else if (board[i][j] == TileType.FIRE)
-        {
-          GameObject fire = Instantiate<GameObject>(firePrefab);
-          fire.transform.position = GridToVectorPosition(i, j);
-          fireBlocks.Add(fire);
-        }
-      }
-    }
-
-    for (int i = 0;i < 20;i++) {
-      int x = Random.Range(0, fireBlocks.Count - 1);
-      fireBlocks[x].GetComponent<FireController>().AddBonus(i < 10 ? BonusType.INCREASE_HYDRANT : BonusType.INCREASE_WATER);
-      fireBlocks.RemoveAt(x);
-    }
-
-    for (int i = 0; i < 2; i++)
-    {
-      GameObject playerObject = Instantiate<GameObject>(playerPrefab);
-      playerObject.GetComponent<PlayerController>().SetButtons(i);
-      playerObject.transform.position = GameManager.Instance.GridToVectorPosition(i == 0 ? 1 : 12, i == 0 ? 1 : 12);
-      if(i == 0) playerObject.GetComponent<SpriteRenderer>().color = new Color(1.0f, 1.0f, 1.0f, 1.0f);
-      else playerObject.GetComponent<SpriteRenderer>().color = new Color(0.5f, 0.5f, 0.5f, 1.0f);
-    }
-  }
-
-  // Update is called once per frame
-  void Update()
-  {
-
   }
 
   public Vector3 GridToVectorPosition(int i, int j)
@@ -148,13 +101,19 @@ public class GameManager : MonoBehaviour
     board[i][j] = tile;
   }
 
-  public void SetTile(Vector2Int pos, TileType tile) {
+  public void SetTile(Vector2Int pos, TileType tile)
+  {
     SetTile(pos.x, pos.y, tile);
   }
 
   public TileType GetTile(Vector2Int gridPos)
   {
     return board[gridPos.x][gridPos.y];
+  }
+
+  public bool CheckPosition(int i, int j, TileType tile)
+  {
+    return GetTile(new Vector2Int(i, j)) == tile;
   }
 
   public bool CheckPosition(Vector3 pos, TileType tile)
@@ -167,7 +126,8 @@ public class GameManager : MonoBehaviour
     return board[i][j] == TileType.FREE;
   }
 
-  public void SetWinner(int id_player){
+  public void SetWinner(int id_player)
+  {
     id_winner = id_player;
     SceneManager.LoadScene("EndScene");
   }

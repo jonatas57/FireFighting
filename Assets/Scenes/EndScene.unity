@@ -470,6 +470,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   content: {fileID: 260069613}
+  restartGame: {fileID: 1148278322}
 --- !u!4 &957088654
 Transform:
   m_ObjectHideFlags: 0
