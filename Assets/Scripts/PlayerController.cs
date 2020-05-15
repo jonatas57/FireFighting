@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class PlayerController : MonoBehaviour {
   
   private Vector3 direction;
@@ -11,6 +12,7 @@ public class PlayerController : MonoBehaviour {
   public GameObject hydrantPrefab;
   private bool pulledByWater;
   private float waterTime;
+  public int id_player;
 
   KeyCode upKey;
   KeyCode downKey;
@@ -29,8 +31,9 @@ public class PlayerController : MonoBehaviour {
     rigidbody = GetComponent<Rigidbody2D>();
   }
 
-  public void SetButtons(int id_player) {
-    if(id_player == 0){
+  public void SetButtons(int id_p) {
+    id_player = id_p;
+    if(id_p == 0){
       upKey = KeyCode.UpArrow;
       downKey = KeyCode.DownArrow;
       leftKey = KeyCode.LeftArrow;
@@ -109,10 +112,13 @@ public class PlayerController : MonoBehaviour {
   private void OnTriggerStay2D(Collider2D other) {
     if (other.CompareTag("Hole") && GameManager.Instance.CheckPosition(transform.position, TileType.HOLE)) {
       Die();
+      if(id_player == 0) GameManager.Instance.SetWinner(1);
+      else GameManager.Instance.SetWinner(0);
     }
   }
 
   private void Die() {
+
     Destroy(gameObject);
   }
 }

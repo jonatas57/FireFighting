@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public enum TileType
 {
@@ -25,6 +26,7 @@ public class GameManager : MonoBehaviour
   private TileType[][] board;
   private int boardSize;
   public float waterForce;
+  public int id_winner;
 
   public static GameManager Instance
   {
@@ -39,22 +41,24 @@ public class GameManager : MonoBehaviour
   }
 
   void Awake()
-  {
-    if (instance != null)
     {
-      DestroyImmediate(this);
-      return;
+        if (instance != null)
+        {
+            DestroyImmediate(this);
+            return;
+        }
+        instance = this;
+        DontDestroyOnLoad(this);
     }
-    instance = this;
-  }
 
 	public void Test() {
-		Debug.Log("OK");
+		SceneManager.LoadScene("GameScene");
 	}
 
   // Start is called before the first frame update
   void Start()
   {
+    id_winner = -1;
     waterForce = 15.0f;
     Vector3 size = new Vector3(21, 21, 0);
     xAxis = size.x * Vector3.right;
@@ -102,6 +106,8 @@ public class GameManager : MonoBehaviour
       GameObject playerObject = Instantiate<GameObject>(playerPrefab);
       playerObject.GetComponent<PlayerController>().SetButtons(i);
       playerObject.transform.position = GameManager.Instance.GridToVectorPosition(i == 0 ? 1 : 12, i == 0 ? 1 : 12);
+      if(i == 0) playerObject.GetComponent<SpriteRenderer>().color = new Color(1.0f, 1.0f, 1.0f, 1.0f);
+      else playerObject.GetComponent<SpriteRenderer>().color = new Color(0.5f, 0.5f, 0.5f, 1.0f);
     }
   }
 
@@ -151,5 +157,10 @@ public class GameManager : MonoBehaviour
   public bool isFree(int i, int j)
   {
     return board[i][j] == TileType.FREE;
+  }
+
+  public void SetWinner(int id_player){
+    id_winner = id_player;
+    SceneManager.LoadScene("EndScene");
   }
 }
