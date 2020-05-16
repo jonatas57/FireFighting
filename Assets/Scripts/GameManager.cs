@@ -131,6 +131,10 @@ public class GameManager : MonoBehaviour
   public void SetWinner(int id_player)
   {
     id_winner = id_player;
+    GoToEndScene();
+  }
+
+  public void GoToEndScene() {
     SceneManager.LoadScene("EndScene");
   }
 }

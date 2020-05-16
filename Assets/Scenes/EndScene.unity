@@ -265,7 +265,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: jogar novamente
+  m_Text: Jogar novamente
 --- !u!222 &670195098
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -580,7 +580,6 @@ GameObject:
   - component: {fileID: 1148278324}
   - component: {fileID: 1148278323}
   - component: {fileID: 1148278322}
-  - component: {fileID: 1148278321}
   m_Layer: 5
   m_Name: Button
   m_TagString: Untagged
@@ -608,24 +607,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: -76}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1148278321
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1148278319}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 804db9ded8d249387a31a372d5b756ed, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerPrefab: {fileID: 0}
-  holePrefab: {fileID: 0}
-  firePrefab: {fileID: 0}
-  bonusPrefab: {fileID: 0}
-  waterForce: 0
-  id_winner: 0
 --- !u!114 &1148278322
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -669,7 +650,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1148278321}
+      - m_Target: {fileID: 0}
         m_MethodName: RestartGame
         m_Mode: 1
         m_Arguments:

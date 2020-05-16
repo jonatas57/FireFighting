@@ -127,8 +127,6 @@ public class PlayerController : MonoBehaviour {
   private void OnTriggerStay2D(Collider2D other) {
     if (other.CompareTag("Hole") && GameManager.Instance.CheckPosition(transform.position, TileType.HOLE)) {
       Die();
-      if(id_player == 0) GameManager.Instance.SetWinner(1);
-      else GameManager.Instance.SetWinner(0);
     }
     else if (other.CompareTag("Water")) {
       waterTime = GameManager.Instance.maxWaterTime;
@@ -136,7 +134,7 @@ public class PlayerController : MonoBehaviour {
   }
 
   private void Die() {
-
+    GameManager.Instance.SetWinner(id_player ^ 1);
     Destroy(gameObject);
   }
 }

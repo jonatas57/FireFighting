@@ -12,9 +12,7 @@ public class FinalSceneManager : MonoBehaviour
     void Start()
     {
        
-        if(GameManager.Instance.id_winner == 1) content.text = "Ganhador cinza";
-        else content.text = "Ganhador branco";
-
+        content.text = "Jogador " + (GameManager.Instance.id_winner + 1) + " venceu";
         restartGame.onClick.AddListener(delegate {GameManager.Instance.NewGame();});
     }
 
