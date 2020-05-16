@@ -386,5 +386,7 @@ MonoBehaviour:
     type: 3}
   bonusPrefab: {fileID: 1060725507725401844, guid: d8438c222048f4c12b9f5809870b4cde,
     type: 3}
+  boardSize: 12
+  maxWaterTime: 0.5
   waterForce: 15
   id_winner: 0

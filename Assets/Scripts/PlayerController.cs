@@ -98,7 +98,7 @@ public class PlayerController : MonoBehaviour {
     if (other.CompareTag("Water") && !pulledByWater) {
       direction = Vector3.zero;
       pulledByWater = true;
-      waterTime = 0.5f;
+      waterTime = GameManager.Instance.maxWaterTime;
       if (other.GetComponent<WaterController>().isHorizontal()) {
         direction += Vector3.right * (transform.position.x - other.transform.position.x);
       }
@@ -129,6 +129,9 @@ public class PlayerController : MonoBehaviour {
       Die();
       if(id_player == 0) GameManager.Instance.SetWinner(1);
       else GameManager.Instance.SetWinner(0);
+    }
+    else if (other.CompareTag("Water")) {
+      waterTime = GameManager.Instance.maxWaterTime;
     }
   }
 

@@ -25,6 +25,8 @@ public class GameManager : MonoBehaviour
 
   private TileType[][] board;
   public int boardSize;
+
+  public float maxWaterTime;
   public float waterForce;
   public int id_winner;
 
