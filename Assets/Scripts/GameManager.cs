@@ -53,13 +53,6 @@ public class GameManager : MonoBehaviour
     DontDestroyOnLoad(this);
   }
 
-  void Start() {
-    NewGame();
-  }
-
-  void Update() {
-  }
-
   public void NewGame()
   {
     SceneManager.LoadScene("GameScene");
@@ -136,5 +129,9 @@ public class GameManager : MonoBehaviour
 
   public void GoToEndScene() {
     SceneManager.LoadScene("EndScene");
+  }
+
+  public void GoToMainMenu() {
+    SceneManager.LoadScene("MainMenu");
   }
 }
