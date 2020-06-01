@@ -131,6 +131,9 @@ public class PlayerController : MonoBehaviour {
     else if (other.CompareTag("Water")) {
       waterTime = GameManager.Instance.maxWaterTime;
     }
+    else if (other.CompareTag("VirtualHole")){
+      Die();
+    }
   }
 
   private void Die() {
