@@ -21,6 +21,8 @@ public class PlayerController : MonoBehaviour {
   KeyCode hydrantKey;
 
   Rigidbody2D rb;
+
+  public Animator animator;
   
   private void Start() {
     speed = 50;
@@ -29,6 +31,8 @@ public class PlayerController : MonoBehaviour {
     waterLength = 2;
     pulledByWater = false;
     rb = GetComponent<Rigidbody2D>();
+
+    animator = GetComponent<Animator>();
   }
 
   public void SetButtons(int id_p) {
@@ -57,18 +61,43 @@ public class PlayerController : MonoBehaviour {
     }
     else {
       if (Input.GetKey(upKey)) {
+        if (animator.GetInteger("direction") != 1) {
+          animator.SetInteger("direction", 1);
+        }
+        animator.SetFloat("animationSpeed", 1.0f);
         direction = Vector3.up;
       }
       else if (Input.GetKey(downKey)) {
+        if (animator.GetInteger("direction") != 2) {
+          animator.SetInteger("direction", 2);
+        }
+        animator.SetFloat("animationSpeed", 1.0f);
         direction = Vector3.down;
       }
       else if (Input.GetKey(leftKey)) {
+        if (animator.GetInteger("direction") != 3) {
+          animator.SetInteger("direction", 3);
+          transform.localScale = Vector3.one;
+        }
+        animator.SetFloat("animationSpeed", 1.0f);
         direction = Vector3.left;
       }
       else if (Input.GetKey(rightKey)) {
+        if (animator.GetInteger("direction") != 4) {
+          animator.SetInteger("direction", 4);
+          transform.localScale = new Vector3(-1, 1, 1);
+        }
+        animator.SetFloat("animationSpeed", 1.0f);
         direction = Vector3.right;
       }
-      else direction = Vector3.zero;
+      else {
+        if (animator.GetFloat("animationSpeed") > 0) {
+          animator.Play(animator.GetCurrentAnimatorStateInfo(0).fullPathHash, 0, 0);
+          animator.SetFloat("animationSpeed", 0);
+        }
+        animator.SetFloat("animationSpeed", 1.0f);
+        direction = Vector3.zero;
+      }
 
       if (Input.GetKeyDown(hydrantKey)) {
         PlaceHydrant();
@@ -91,6 +120,7 @@ public class PlayerController : MonoBehaviour {
       GameManager.Instance.SetTile(gridPos.x, gridPos.y, TileType.HYDRANT);
       hydrant.transform.position = GameManager.Instance.GetGridPosition(transform.position) + new Vector3(0, 0, 0.5f);
       hydrant.GetComponent<HydrantController>().SetOwner(this);
+      hydrant.GetComponent<HydrantController>().waterLength = waterLength;
     }
   }
 

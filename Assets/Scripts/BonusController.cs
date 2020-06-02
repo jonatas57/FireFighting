@@ -11,19 +11,15 @@ public enum BonusType {
 public class BonusController : MonoBehaviour {
 
   private BonusType bonusType;
+  public Animator animator;
 
-  // Start is called before the first frame update
-  void Start() {
-
-  }
-
-  // Update is called once per frame
-  void Update() {
-
+  void Start() {  
+    animator = GetComponent<Animator>();
   }
 
   public void SetBonusType(BonusType type) {
     bonusType = type;
+    animator.SetInteger("bonusType", (int)type);
   }
 
   public BonusType GetBonusType() {

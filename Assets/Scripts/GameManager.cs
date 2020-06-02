@@ -15,6 +15,8 @@ public class GameManager : MonoBehaviour
 {
 
   private static GameManager instance = null;
+
+  public int TILE_SIZE = 21;
   private Vector3 xAxis;
   private Vector3 yAxis;
   public GameObject playerPrefab;

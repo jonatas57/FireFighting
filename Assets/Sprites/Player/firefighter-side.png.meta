@@ -1,19 +1,19 @@
 fileFormatVersion: 2
-guid: 667c1da8dba406a57a38d4717f6512e7
+guid: 37f81a75dbac48ed080184257bb44b17
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -9024402513639894970
-    second: firefighter-front_0
+      213: 4739837352263330808
+    second: firefighter-side_0
   - first:
-      213: 7993546012039308729
-    second: firefighter-front_1
+      213: 5662103695636191450
+    second: firefighter-side_1
   - first:
-      213: 6882578975062269638
-    second: firefighter-front_2
+      213: 641245671456752108
+    second: firefighter-side_2
   - first:
-      213: -8760469849310565218
-    second: firefighter-front_3
+      213: 715153581997224719
+    second: firefighter-side_3
   externalObjects: {}
   serializedVersion: 10
   mipmaps:
@@ -52,12 +52,12 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 1
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -98,85 +98,85 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: firefighter-front_0
+      name: firefighter-side_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 6
+        y: 36
+        width: 19
+        height: 27
+      alignment: 9
+      pivot: {x: 0.47368422, y: 0.3888889}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b52831c7db9079179a02b03517d34e67
-      internalID: -9024402513639894970
+      spriteID: a0e37800c697cdfcd8cf4d529fcc4ed6
+      internalID: 4739837352263330808
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: firefighter-front_1
+      name: firefighter-side_1
       rect:
         serializedVersion: 2
-        x: 32
-        y: 0
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 38
+        y: 36
+        width: 18
+        height: 27
+      alignment: 9
+      pivot: {x: 0.5, y: 0.3888889}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ca865069031461f539e2015553e98420
-      internalID: 7993546012039308729
+      spriteID: 128daa451ccd1987a87732af37febe1b
+      internalID: 5662103695636191450
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: firefighter-front_2
+      name: firefighter-side_2
       rect:
         serializedVersion: 2
-        x: 64
-        y: 0
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 6
+        y: 4
+        width: 19
+        height: 27
+      alignment: 9
+      pivot: {x: 0.47368422, y: 0.3888889}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8d6d5bfbfdf174252b1c1f68fae5e00c
-      internalID: 6882578975062269638
+      spriteID: fb24283bad7f30547954f74ac16b10a4
+      internalID: 641245671456752108
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: firefighter-front_3
+      name: firefighter-side_3
       rect:
         serializedVersion: 2
-        x: 96
-        y: 0
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 39
+        y: 4
+        width: 18
+        height: 27
+      alignment: 9
+      pivot: {x: 0.5, y: 0.3888889}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0635c11db771fcbb1abad33bfc064710
-      internalID: -8760469849310565218
+      spriteID: 952973be2c510d1b29daddfe3275b28a
+      internalID: 715153581997224719
       vertices: []
       indices: 
       edges: []
