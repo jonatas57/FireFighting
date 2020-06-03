@@ -9,9 +9,32 @@ public class LevelBuilder : MonoBehaviour
   public GameObject holePrefab;
   public GameObject firePrefab;
   public GameObject bonusPrefab;
+  public GameObject virtualHolePrefab;
+  private int ii;
+  private int jj;
+  private int virtual_hole_qty;
+  private int id_direction;
+  private bool [][] Matrix_virtual_holes;
+  public float time_destroy;
+  
 
   private void Start() {
     BuildLevel();
+    ii = 1;
+    jj = 1;
+    virtual_hole_qty = 0;
+    id_direction = 0;
+    time_destroy = 10.0f;
+
+    int boardSize = GameManager.Instance.boardSize;
+    Matrix_virtual_holes = new bool [boardSize+2][];
+    for(int i=0; i < boardSize+2; i++){
+      Matrix_virtual_holes[i] = new bool [boardSize+2];
+      for(int j=0; j < boardSize+2; j++){
+        if(i == 0 || i == 13 || j == 0 || j == 13) Matrix_virtual_holes[i][j] = false;
+        else Matrix_virtual_holes[i][j] = true;
+      }
+    }
   }
 
   public void BuildLevel() {
@@ -72,6 +95,68 @@ public class LevelBuilder : MonoBehaviour
       playerObject.transform.position = GameManager.Instance.GridToVectorPosition(i == 0 ? 1 : 12, i == 0 ? 1 : 12);
       if (i == 0) playerObject.GetComponent<SpriteRenderer>().color = new Color(1.0f, 1.0f, 1.0f, 1.0f);
       else playerObject.GetComponent<SpriteRenderer>().color = new Color(0.5f, 0.5f, 0.5f, 1.0f);
+    }
+  }
+
+  public void SetHole(int x, int y) {
+    Matrix_virtual_holes[x][y] = false;
+    GameObject virtualHole = Instantiate<GameObject>(virtualHolePrefab);
+    virtualHole.transform.position = GameManager.Instance.GridToVectorPosition(x, y);
+    virtual_hole_qty++;
+  }
+
+  public void FixedUpdate(){
+    time_destroy -= Time.deltaTime;
+    if(time_destroy < 0 && virtual_hole_qty < 144){
+      if(id_direction % 4 == 0){
+        if(Matrix_virtual_holes[ii][jj]){
+          SetHole(ii, jj);
+          jj += 1;
+
+          if(!Matrix_virtual_holes[ii][jj]){
+            ii += 1;
+            jj -= 1;
+            id_direction++;
+          }
+        }
+      }
+      else if(id_direction % 4 == 1){
+        if(Matrix_virtual_holes[ii][jj]) {
+          SetHole(ii, jj);
+          ii += 1;
+        
+          if(!Matrix_virtual_holes[ii][jj]){
+            ii -= 1;
+            jj -= 1;
+            id_direction++;
+          }
+        }
+      }
+      else if(id_direction % 4 == 2){
+        if(Matrix_virtual_holes[ii][jj]){
+          SetHole(ii, jj);
+          jj -= 1;
+          
+          if(!Matrix_virtual_holes[ii][jj]){
+            ii -= 1;
+            jj += 1;
+            id_direction++;
+          }
+        }
+      }
+      else{
+        if(Matrix_virtual_holes[ii][jj]){
+          SetHole(ii, jj);
+          ii -= 1;
+          
+          if(!Matrix_virtual_holes[ii][jj]){
+            ii += 1;
+            jj += 1;
+            id_direction++;
+          }
+        }
+      }
+      time_destroy = 0.2f;
     }
   }
 }

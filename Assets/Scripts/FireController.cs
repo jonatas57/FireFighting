@@ -43,6 +43,9 @@ public class FireController : MonoBehaviour
             GameManager.Instance.SetTile(pos, TileType.FREE);
             Destroy(gameObject);
         }
+        else if(other.CompareTag("VirtualHole")){
+            Destroy(gameObject);
+        }
     }
 
 }
