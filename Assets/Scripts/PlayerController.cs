@@ -20,6 +20,12 @@ public class PlayerController : MonoBehaviour {
   KeyCode rightKey;
   KeyCode hydrantKey;
 
+  public bool aiUp;
+  public bool aiDown;
+  public bool aiLeft;
+  public bool aiRight;
+  public bool aiHydrant;
+
   Rigidbody2D rb;
 
   public Animator animator;
@@ -60,21 +66,21 @@ public class PlayerController : MonoBehaviour {
       if (waterTime < 0) pulledByWater = false;
     }
     else {
-      if (Input.GetKey(upKey)) {
+      if (Input.GetKey(upKey) || aiUp) {
         if (animator.GetInteger("direction") != 1) {
           animator.SetInteger("direction", 1);
         }
         animator.SetFloat("animationSpeed", 1.0f);
         direction = Vector3.up;
       }
-      else if (Input.GetKey(downKey)) {
+      else if (Input.GetKey(downKey) || aiDown) {
         if (animator.GetInteger("direction") != 2) {
           animator.SetInteger("direction", 2);
         }
         animator.SetFloat("animationSpeed", 1.0f);
         direction = Vector3.down;
       }
-      else if (Input.GetKey(leftKey)) {
+      else if (Input.GetKey(leftKey) || aiLeft) {
         if (animator.GetInteger("direction") != 3) {
           animator.SetInteger("direction", 3);
           transform.localScale = Vector3.one;
@@ -82,7 +88,7 @@ public class PlayerController : MonoBehaviour {
         animator.SetFloat("animationSpeed", 1.0f);
         direction = Vector3.left;
       }
-      else if (Input.GetKey(rightKey)) {
+      else if (Input.GetKey(rightKey) || aiRight) {
         if (animator.GetInteger("direction") != 4) {
           animator.SetInteger("direction", 4);
           transform.localScale = new Vector3(-1, 1, 1);
@@ -99,7 +105,7 @@ public class PlayerController : MonoBehaviour {
         direction = Vector3.zero;
       }
 
-      if (Input.GetKeyDown(hydrantKey)) {
+      if (Input.GetKeyDown(hydrantKey) || aiHydrant) {
         PlaceHydrant();
       }
 
@@ -150,6 +156,7 @@ public class PlayerController : MonoBehaviour {
         default:
         break;
       }
+      board.SetTile(other.transform.position, TileType.FREE);
       Destroy(other.gameObject);
     }
   }

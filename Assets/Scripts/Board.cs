@@ -5,6 +5,7 @@ public enum TileType {
   FREE,
   HOLE,
   HYDRANT,
+  BONUS,
   FIRE
 }
 
@@ -28,7 +29,6 @@ public class Board {
 
   public void SetTile(int i, int j, TileType tile) {
     if (i < 0 || j < 0 || i > size + 1 || j > size + 1) {
-      Debug.Log("Board: SetTile: Out of bounds" + i + " " + j);
       return;
     }
     board[i][j] = tile;
@@ -38,9 +38,12 @@ public class Board {
     SetTile(grid.x, grid.y, tile);
   }
 
+  public void SetTile(Vector3 position, TileType tile) {
+    SetTile(VectorToGridPosition(position), tile);
+  }
+
   public TileType GetTile(int i, int j) {
     if (i < 0 || j < 0 || i > size + 1 || j > size + 1) {
-      Debug.Log("Board: GetTile: Out of bounds");
       return TileType.NONE;
     }
     return board[i][j];
@@ -75,4 +78,12 @@ public class Board {
     return GridToVectorPosition(gridPos.x, gridPos.y);
   }
 
+  public bool IsWalkable(Vector2Int grid) {
+    TileType tile = GetTile(grid);
+    return tile == TileType.BONUS || tile == TileType.FREE;
+  }
+
+  public int GetDanger(Vector2Int grid) {
+    return 0;
+  }
 }

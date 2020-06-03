@@ -88,8 +88,9 @@ public class LevelBuilder : MonoBehaviour
     }
 
     // Instancia jogadores
-    for (int i = 0; i < 2; i++)
-    {
+    int numberPlayers = GameManager.Instance.numberPlayers;
+    GameManager.Instance.players = new GameObject[numberPlayers];
+    for (int i = 0;i < numberPlayers;i++) {
       GameObject playerObject = Instantiate<GameObject>(playerPrefab);
       PlayerController playerCtrlr = playerObject.GetComponent<PlayerController>();
       playerCtrlr.SetButtons(i);
@@ -97,6 +98,12 @@ public class LevelBuilder : MonoBehaviour
       playerObject.transform.position = board.GridToVectorPosition(i == 0 ? 1 : 12, i == 0 ? 1 : 12);
       if (i == 0) playerObject.GetComponent<SpriteRenderer>().color = new Color(1.0f, 1.0f, 1.0f, 1.0f);
       else playerObject.GetComponent<SpriteRenderer>().color = new Color(0.5f, 0.5f, 0.5f, 1.0f);
+
+      if (GameManager.Instance.playerType[i] == 0) {
+        playerObject.AddComponent<AIController>();
+      }
+
+      GameManager.Instance.players[i] = playerObject;
     }
 
     GameManager.Instance.board = board;

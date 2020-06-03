@@ -241,6 +241,9 @@ MonoBehaviour:
     type: 3}
   bonusPrefab: {fileID: 1060725507725401844, guid: d8438c222048f4c12b9f5809870b4cde,
     type: 3}
+  virtualHolePrefab: {fileID: 5610206300657821793, guid: ec29fa0a2ddae4c778ab19b77deab428,
+    type: 3}
+  time_destroy: 0
 --- !u!4 &524532260
 Transform:
   m_ObjectHideFlags: 0

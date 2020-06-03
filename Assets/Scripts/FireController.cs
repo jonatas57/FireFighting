@@ -37,10 +37,13 @@ public class FireController : MonoBehaviour
                 GameObject bonusObject = Instantiate<GameObject>(bonusPrefab);
                 bonusObject.GetComponent<BonusController>().SetBonusType(bonusType);
                 bonusObject.transform.position = transform.position;
+                Vector2Int pos = GameManager.Instance.board.VectorToGridPosition(transform.position);
+                GameManager.Instance.board.SetTile(pos, TileType.BONUS);
             }
-            
-            Vector2Int pos = GameManager.Instance.board.VectorToGridPosition(transform.position);
-            GameManager.Instance.board.SetTile(pos, TileType.FREE);
+            else {
+                Vector2Int pos = GameManager.Instance.board.VectorToGridPosition(transform.position);
+                GameManager.Instance.board.SetTile(pos, TileType.FREE);
+            }
             Destroy(gameObject);
         }
         else if(other.CompareTag("VirtualHole")){
