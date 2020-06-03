@@ -39,8 +39,8 @@ public class FireController : MonoBehaviour
                 bonusObject.transform.position = transform.position;
             }
             
-            Vector2Int pos = GameManager.Instance.VectorToGridPosition(transform.position);
-            GameManager.Instance.SetTile(pos, TileType.FREE);
+            Vector2Int pos = GameManager.Instance.board.VectorToGridPosition(transform.position);
+            GameManager.Instance.board.SetTile(pos, TileType.FREE);
             Destroy(gameObject);
         }
         else if(other.CompareTag("VirtualHole")){

@@ -4,7 +4,7 @@ using UnityEngine;
 
 
 public class PlayerController : MonoBehaviour {
-  
+  public Board board;
   private Vector3 direction;
   public float speed;
   public int hydrantQtd;
@@ -113,12 +113,12 @@ public class PlayerController : MonoBehaviour {
 
 
   private void PlaceHydrant() {
-    Vector2Int gridPos = GameManager.Instance.VectorToGridPosition(transform.position);
-    if (hydrantQtd > 0 && GameManager.Instance.isFree(gridPos.x, gridPos.y)) {
+    Vector2Int gridPos = board.VectorToGridPosition(transform.position);
+    if (hydrantQtd > 0 && board.GetTile(gridPos) == TileType.FREE) {
       hydrantQtd--;
       GameObject hydrant = Instantiate<GameObject>(hydrantPrefab);
-      GameManager.Instance.SetTile(gridPos.x, gridPos.y, TileType.HYDRANT);
-      hydrant.transform.position = GameManager.Instance.GetGridPosition(transform.position) + new Vector3(0, 0, 0.5f);
+      board.SetTile(gridPos.x, gridPos.y, TileType.HYDRANT);
+      hydrant.transform.position = board.GetGridPosition(transform.position) + new Vector3(0, 0, 0.5f);
       hydrant.GetComponent<HydrantController>().SetOwner(this);
       hydrant.GetComponent<HydrantController>().waterLength = waterLength;
     }
@@ -155,7 +155,7 @@ public class PlayerController : MonoBehaviour {
   }
 
   private void OnTriggerStay2D(Collider2D other) {
-    if (other.CompareTag("Hole") && GameManager.Instance.CheckPosition(transform.position, TileType.HOLE)) {
+    if (other.CompareTag("Hole") && board.GetTile(transform.position) == TileType.HOLE) {
       Die();
     }
     else if (other.CompareTag("Water")) {

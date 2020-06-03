@@ -38,10 +38,8 @@ public class HydrantController : MonoBehaviour {
   private void Explode() {
     Squirt();
     owner.IncreaseHydrantQtd();
-    Vector2Int gridPos = GameManager.Instance.VectorToGridPosition(transform.position);
-    // Vector2Int gridPos = GameManager.Instance.GetBoard().VectorToGridPosition(transform.position);
-    // GameManager.Instance.GetBoard().SetTile(gridPos.x, gridPos.y, TileType.FREE);
-    GameManager.Instance.SetTile(gridPos.x, gridPos.y, TileType.FREE);
+    Vector2Int gridPos = GameManager.Instance.board.VectorToGridPosition(transform.position);
+    GameManager.Instance.board.SetTile(gridPos.x, gridPos.y, TileType.FREE);
     Destroy(gameObject);
   }
 

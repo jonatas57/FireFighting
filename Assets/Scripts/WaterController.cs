@@ -45,7 +45,7 @@ public class WaterController : MonoBehaviour {
       if (length > counter) {
         for (int i = 0;i < 4;i++) {
           GameObject water = Instantiate<GameObject>(waterPrefab, transform);
-          water.transform.position = GameManager.Instance.GetGridPosition(waterEnds[i].transform.position);
+          water.transform.position = GameManager.Instance.board.GetGridPosition(waterEnds[i].transform.position);
           // water.transform.position = GameManager.Instance.GetBoard().GetGridPosition(waterEnds[i].transform.position);
           water.transform.rotation = Quaternion.Euler(0, 0, i * 90);
           water.GetComponent<Animator>().Play(0, -1, (elapsedTime - (int)elapsedTime) / animLength);
