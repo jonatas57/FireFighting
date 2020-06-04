@@ -16,11 +16,21 @@ public class Board {
   private Vector3 xAxis;
   private Vector3 yAxis;
 
+  private int[][] dangerMatrix;
+
   public Board(int boardSize) {
     size = boardSize;
     board = new TileType[boardSize + 2][];
     for (int i = 0;i < boardSize + 2;i++) {
       board[i] = new TileType[boardSize + 2];
+    }
+
+    dangerMatrix = new int[boardSize + 2][];
+    for (int i = 0;i < boardSize + 2;i++) {
+      dangerMatrix[i] = new int[boardSize + 2];
+      for (int j = 0;j < boardSize + 2;j++) {
+        dangerMatrix[i][j] = 0;
+      }
     }
 
     xAxis = Vector3.right * GameManager.Instance.TILE_SIZE;
@@ -83,7 +93,36 @@ public class Board {
     return tile == TileType.BONUS || tile == TileType.FREE;
   }
 
+  public bool IsSafe(Vector2Int grid) {
+    return GetDanger(grid) == 0;
+  }
+
+  public int GetDanger(int i, int j) {
+    if (i < 0 || j < 0 || i > size + 1 || j > size + 1) {
+      return 0;
+    }
+    return dangerMatrix[i][j];
+  }
+
   public int GetDanger(Vector2Int grid) {
-    return 0;
+    return GetDanger(grid.x, grid.y);
+  }
+
+  public void SetDanger(int x, int y, int length, int danger) {
+    dangerMatrix[x][y] += danger;
+    for (int i = 1;i <= length;i++) {
+      if (x + i < size + 2) dangerMatrix[x + i][y] += danger;
+      if (x - i >= 0) dangerMatrix[x - i][y] += danger;
+      if (y + i < size + 2) dangerMatrix[x][y + i] += danger;
+      if (y - i >= 0) dangerMatrix[x][y - i] += danger;
+    }
+  }
+
+  public void SetDanger(Vector2Int grid, int length, int danger) {
+    SetDanger(grid.x, grid.y, length, danger);
+  }
+
+  public void SetDanger(Vector3 position, int length, int danger) {
+    SetDanger(VectorToGridPosition(position), length, danger);
   }
 }

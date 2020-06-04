@@ -13,7 +13,7 @@ public class HydrantController : MonoBehaviour {
   private void Start() {
     explosionTime = 3;
 
-    // GameManager.Instance.GetBoard().SetDanger(transform.position, waterLength, 1);
+    GameManager.Instance.board.SetDanger(transform.position, waterLength, 1);
   }
 
   private void FixedUpdate() {
