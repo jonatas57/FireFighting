@@ -63,7 +63,4 @@ public class WaterController : MonoBehaviour {
   public Vector3 GetWaterDirection(Vector3 position) {
     return position - transform.position;
   }
-  public bool isHorizontal() {
-    return true;
-  }
 }

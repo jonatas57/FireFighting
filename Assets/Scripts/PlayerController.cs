@@ -132,15 +132,10 @@ public class PlayerController : MonoBehaviour {
 
   private void OnTriggerEnter2D(Collider2D other) {
     if (other.CompareTag("Water") && !pulledByWater) {
-      direction = Vector3.zero;
       pulledByWater = true;
       waterTime = GameManager.Instance.maxWaterTime;
-      if (other.GetComponent<WaterController>().isHorizontal()) {
-        direction += Vector3.right * (transform.position.x - other.transform.position.x);
-      }
-      else {
-        direction += Vector3.up * (transform.position.y - other.transform.position.y);
-      }
+      WaterController wc = other.GetComponentInParent<WaterController>();
+      direction = wc.GetWaterDirection(other.transform.position);
       direction = direction.normalized * GameManager.Instance.waterForce;
     }
     else if (other.CompareTag("Bonus")) {
