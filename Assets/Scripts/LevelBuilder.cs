@@ -17,7 +17,17 @@ public class LevelBuilder : MonoBehaviour
   private int id_direction;
   private bool [][] Matrix_virtual_holes;
   public float time_destroy;
-  
+
+  struct infoDirection{
+    public int ii, jj, iiNext, jjNext;
+    public void SetAttr(int ii, int jj, int iiNext, int jjNext){
+      this.ii = ii;
+      this.jj = jj;
+      this.iiNext = iiNext;
+      this.jjNext = jjNext;
+    }
+  };
+  private infoDirection[] info = new infoDirection[4];
 
   private void Start() {
     BuildLevel();
@@ -36,6 +46,11 @@ public class LevelBuilder : MonoBehaviour
         else Matrix_virtual_holes[i][j] = true;
       }
     }
+
+    info[0].SetAttr(0, 1, 1, -1);
+    info[1].SetAttr(1, 0, -1, -1);
+    info[2].SetAttr(0, -1, -1, 1);
+    info[3].SetAttr(-1, 0, 1, 1);
   }
 
   public void BuildLevel() {
@@ -118,53 +133,16 @@ public class LevelBuilder : MonoBehaviour
 
   public void FixedUpdate(){
     time_destroy -= Time.deltaTime;
-    if(time_destroy < 0 && virtual_hole_qty < 144){
-      if(id_direction % 4 == 0){
-        if(Matrix_virtual_holes[ii][jj]){
-          SetHole(ii, jj);
-          jj += 1;
+    if(time_destroy < 0 && virtual_hole_qty < 144) {
+      if(Matrix_virtual_holes[ii][jj]) {
+        SetHole(ii, jj);
+        ii += info[id_direction%4].ii;
+        jj += info[id_direction%4].jj;
 
-          if(!Matrix_virtual_holes[ii][jj]){
-            ii += 1;
-            jj -= 1;
-            id_direction++;
-          }
-        }
-      }
-      else if(id_direction % 4 == 1){
-        if(Matrix_virtual_holes[ii][jj]) {
-          SetHole(ii, jj);
-          ii += 1;
-        
-          if(!Matrix_virtual_holes[ii][jj]){
-            ii -= 1;
-            jj -= 1;
-            id_direction++;
-          }
-        }
-      }
-      else if(id_direction % 4 == 2){
-        if(Matrix_virtual_holes[ii][jj]){
-          SetHole(ii, jj);
-          jj -= 1;
-          
-          if(!Matrix_virtual_holes[ii][jj]){
-            ii -= 1;
-            jj += 1;
-            id_direction++;
-          }
-        }
-      }
-      else{
-        if(Matrix_virtual_holes[ii][jj]){
-          SetHole(ii, jj);
-          ii -= 1;
-          
-          if(!Matrix_virtual_holes[ii][jj]){
-            ii += 1;
-            jj += 1;
-            id_direction++;
-          }
+        if(!Matrix_virtual_holes[ii][jj]){
+          ii += info[id_direction%4].iiNext;
+          jj += info[id_direction%4].jjNext;
+          id_direction++;
         }
       }
       time_destroy = 0.2f;
