@@ -10,12 +10,10 @@ public class LevelBuilder : MonoBehaviour
   public GameObject holePrefab;
   public GameObject firePrefab;
   public GameObject bonusPrefab;
-  public GameObject virtualHolePrefab;
   private int ii;
   private int jj;
   private int virtual_hole_qty;
   private int id_direction;
-  private bool [][] Matrix_virtual_holes;
   public float time_destroy;
 
   struct infoDirection{
@@ -36,16 +34,6 @@ public class LevelBuilder : MonoBehaviour
     virtual_hole_qty = 0;
     id_direction = 0;
     time_destroy = 10.0f;
-
-    int boardSize = GameManager.Instance.boardSize;
-    Matrix_virtual_holes = new bool [boardSize+2][];
-    for(int i=0; i < boardSize+2; i++){
-      Matrix_virtual_holes[i] = new bool [boardSize+2];
-      for(int j=0; j < boardSize+2; j++){
-        if(i == 0 || i == 13 || j == 0 || j == 13) Matrix_virtual_holes[i][j] = false;
-        else Matrix_virtual_holes[i][j] = true;
-      }
-    }
 
     info[0].SetAttr(0, 1, 1, -1);
     info[1].SetAttr(1, 0, -1, -1);
@@ -125,21 +113,22 @@ public class LevelBuilder : MonoBehaviour
   }
 
   public void SetHole(int x, int y) {
-    Matrix_virtual_holes[x][y] = false;
-    GameObject virtualHole = Instantiate<GameObject>(virtualHolePrefab);
-    virtualHole.transform.position = board.GridToVectorPosition(x, y);
+    GameObject hole = Instantiate<GameObject>(holePrefab);
+    hole.transform.position = board.GridToVectorPosition(x, y);
+    Vector2Int pos = GameManager.Instance.board.VectorToGridPosition(hole.transform.position);
+    board.SetTile(pos, TileType.HOLE);
     virtual_hole_qty++;
   }
 
   public void FixedUpdate(){
     time_destroy -= Time.deltaTime;
     if(time_destroy < 0 && virtual_hole_qty < 144) {
-      if(Matrix_virtual_holes[ii][jj]) {
+      if(board.GetTile(ii, jj) != TileType.HOLE) {
         SetHole(ii, jj);
         ii += info[id_direction%4].ii;
         jj += info[id_direction%4].jj;
 
-        if(!Matrix_virtual_holes[ii][jj]){
+        if(board.GetTile(ii, jj) == TileType.HOLE){
           ii += info[id_direction%4].iiNext;
           jj += info[id_direction%4].jjNext;
           id_direction++;
