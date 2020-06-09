@@ -26,6 +26,9 @@ public class GameManager : MonoBehaviour
   public float waterForce;
   public int id_winner;
 
+  public int[] modeCharacters;
+  public int qtyRounds;
+
   public static GameManager Instance
   {
     get
@@ -74,4 +77,10 @@ public class GameManager : MonoBehaviour
   public void GoToMainMenu() {
     SceneManager.LoadScene("MainMenu");
   }
+
+  public void SetValues(int[] modeCharacters, int qtyRounds){
+    this.qtyRounds = qtyRounds;
+    this.modeCharacters = modeCharacters;
+  }
+
 }

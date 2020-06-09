@@ -46,7 +46,7 @@ public class FireController : MonoBehaviour
             }
             Destroy(gameObject);
         }
-        else if(other.CompareTag("VirtualHole")){
+        else if(other.CompareTag("Hole")){
             Destroy(gameObject);
         }
     }
