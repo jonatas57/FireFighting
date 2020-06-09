@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+
 
 public class MainMenuManager : MonoBehaviour
 {
@@ -10,7 +12,8 @@ public class MainMenuManager : MonoBehaviour
 
     private void Start() {
         playButton.onClick.AddListener(delegate {
-            GameManager.Instance.NewGame();
+            SceneManager.LoadScene("OptionsMenu");
+            //GameManager.Instance.NewGame();
         });
 
         exitButton.onClick.AddListener(delegate {
