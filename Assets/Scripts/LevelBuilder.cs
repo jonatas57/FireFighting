@@ -15,6 +15,8 @@ public class LevelBuilder : MonoBehaviour
   private int virtual_hole_qty;
   private int id_direction;
   public float time_destroy;
+  public List<GameObject> fireBlocks;
+  public GameObject[] bonusList;
 
   struct infoDirection{
     public int ii, jj, iiNext, jjNext;
@@ -47,7 +49,7 @@ public class LevelBuilder : MonoBehaviour
     board = new Board(boardSize);
 
     // Cria matriz de blocos
-    List<GameObject> fireBlocks = new List<GameObject>();
+    fireBlocks = new List<GameObject>();
     for (int i = 0;i < boardSize + 2;i++) {
       for (int j = 0; j < boardSize + 2; j++) {
         if (i == 0 || j == 0 || i == boardSize + 1 || j == boardSize + 1) {
@@ -113,6 +115,15 @@ public class LevelBuilder : MonoBehaviour
   }
 
   public void SetHole(int x, int y) {
+    bonusList =  GameObject.FindGameObjectsWithTag("Bonus");
+    for(int i=0; i < bonusList.Length; i++){
+        GameObject obj = bonusList[i];
+        if(board.GridToVectorPosition(x, y) == obj.transform.position){
+            Destroy(obj.gameObject);
+            break;
+        }
+    }
+
     GameObject hole = Instantiate<GameObject>(holePrefab);
     hole.transform.position = board.GridToVectorPosition(x, y);
     Vector2Int pos = GameManager.Instance.board.VectorToGridPosition(hole.transform.position);
