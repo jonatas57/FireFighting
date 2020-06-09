@@ -41,6 +41,8 @@ public class LevelBuilder : MonoBehaviour
     info[1].SetAttr(1, 0, -1, -1);
     info[2].SetAttr(0, -1, -1, 1);
     info[3].SetAttr(-1, 0, 1, 1);
+
+    board.SetDanger(1, 1, 0, 1);
   }
 
   public void BuildLevel() {
@@ -150,6 +152,8 @@ public class LevelBuilder : MonoBehaviour
           jj += info[id_direction%4].jjNext;
           id_direction++;
         }
+
+        board.SetDanger(ii, jj, 0, 1);
       }
       time_destroy = 0.2f;
     }

@@ -91,7 +91,8 @@ public class AIController : MonoBehaviour {
     if (path.Count == 0 || pathIndex > (path.Count - 2)) {
       return;
     }
-    if (currentTask == Task.GET_BONUS && board.GetTile(path.Last()) != TileType.BONUS) {
+    if ((currentTask == Task.GET_BONUS && board.GetTile(path.Last()) != TileType.BONUS) || !board.IsWalkable(path.Last())) {
+      currentTask = Task.NONE;
       path.Clear();
       return;
     }
