@@ -103,6 +103,11 @@ MonoBehaviour:
   hydrantPrefab: {fileID: 5571698552806699983, guid: 169944a6c4f42dc59aeb4e74abfb77cf,
     type: 3}
   id_player: 0
+  aiUp: 0
+  aiDown: 0
+  aiLeft: 0
+  aiRight: 0
+  aiHydrant: 0
   animator: {fileID: 0}
 --- !u!60 &1495656058856299654
 PolygonCollider2D:
@@ -129,14 +134,10 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: -10.5, y: 7}
-      - {x: -7, y: 10.5}
-      - {x: 7, y: 10.5}
-      - {x: 10.5, y: 7}
-      - {x: 10.5, y: -7}
-      - {x: 7, y: -10.5}
-      - {x: -7, y: -10.5}
-      - {x: -10.5, y: -7}
+    - - {x: -10, y: 0}
+      - {x: 0, y: 10}
+      - {x: 10, y: 0}
+      - {x: 0, y: -10}
 --- !u!50 &9223227365491140005
 Rigidbody2D:
   serializedVersion: 4
