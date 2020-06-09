@@ -18,14 +18,19 @@ public class GameManager : MonoBehaviour
   public Board board;
   public int boardSize = 12;
 
-  public int numberPlayers = 2;
-  public GameObject[] players;
-  public int[] playerType = new int[] {1, 0};
-
   public float maxWaterTime;
   public float waterForce;
   public int id_winner;
 
+
+  public int numberPlayers = 4;
+  public Vector2Int[] defaultPositions = new Vector2Int[] {
+    new Vector2Int(1, 1),
+    new Vector2Int(12, 12),
+    new Vector2Int(12, 1),
+    new Vector2Int(1, 12)
+  };
+  public GameObject[] players;
   public int[] modeCharacters;
   public int qtyRounds;
 

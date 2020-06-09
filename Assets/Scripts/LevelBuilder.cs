@@ -96,18 +96,24 @@ public class LevelBuilder : MonoBehaviour
     int numberPlayers = GameManager.Instance.numberPlayers;
     GameManager.Instance.players = new GameObject[numberPlayers];
     for (int i = 0;i < numberPlayers;i++) {
+      if (GameManager.Instance.modeCharacters[i] == 2) continue;
       GameObject playerObject = Instantiate<GameObject>(playerPrefab);
       PlayerController playerCtrlr = playerObject.GetComponent<PlayerController>();
       playerCtrlr.SetButtons(i);
       playerCtrlr.board = board;
-      playerObject.transform.position = board.GridToVectorPosition(i == 0 ? 1 : 12, i == 0 ? 1 : 12);
+      playerObject.transform.position = board.GridToVectorPosition(GameManager.Instance.defaultPositions[i]);
       if (i == 0) playerObject.GetComponent<SpriteRenderer>().color = new Color(1.0f, 1.0f, 1.0f, 1.0f);
       else playerObject.GetComponent<SpriteRenderer>().color = new Color(0.5f, 0.5f, 0.5f, 1.0f);
 
-      if (GameManager.Instance.playerType[i] == 0) {
+      if (GameManager.Instance.modeCharacters[i] == 0) {
         playerObject.AddComponent<AIController>();
       }
 
+      for (int j = 0;j < i;j++) {
+        if (GameManager.Instance.players[j]) {
+          Physics2D.IgnoreCollision(GameManager.Instance.players[j].GetComponent<Collider2D>(), playerObject.GetComponent<Collider2D>());
+        }
+      }
       GameManager.Instance.players[i] = playerObject;
     }
 
