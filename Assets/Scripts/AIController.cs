@@ -100,8 +100,7 @@ public class AIController : MonoBehaviour {
     
     var currentTile = path[pathIndex];
     var nextTile = path[pathIndex + 1];
-    if (currentTask != Task.GET_SAFE && !board.IsSafe(nextTile)) {
-      Debug.Log(currentTask + " " + nextTile + " " + board.IsSafe(nextTile));
+    if (currentTask != Task.GET_SAFE && !board.IsSafe(nextTile) && board.IsSafe(gridCoords)) {
       return;
     }
     
@@ -139,7 +138,7 @@ public class AIController : MonoBehaviour {
   public Vector2Int FindSafePlace() {
     Vector2Int safePlace = Vector2Int.one * -1;
     int minDist = 500;
-    for (int i = 0;i < reachableNodes.Count;i++) {
+    for (int i = 1;i < reachableNodes.Count;i++) {
       if (reachableNodes[i].distToStart < minDist && board.IsSafe(reachableNodes[i].coord)) {
         safePlace = reachableNodes[i].coord;
         minDist = reachableNodes[i].distToStart;
@@ -166,6 +165,7 @@ public class AIController : MonoBehaviour {
     var safePlace = FindSafePlace();
     
     var bonusPosition = GetBonusPosition();
+    Debug.Log(gridCoords + " " + board.IsSafe(gridCoords) + " " + safePlace + " " + board.IsSafe(safePlace));
     if (!board.IsSafe(gridCoords) && safePlace.x != -1 && safePlace != gridCoords) {
       currentTask = Task.GET_SAFE;
       path = AStar(gridCoords, safePlace, board);
