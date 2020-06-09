@@ -101,7 +101,9 @@ public class AIController : MonoBehaviour {
     
     var currentTile = path[pathIndex];
     var nextTile = path[pathIndex + 1];
-    if (currentTask != Task.GET_SAFE && !board.IsSafe(nextTile) && board.IsSafe(gridCoords)) {
+
+    if ((currentTask != Task.GET_SAFE && !board.IsSafe(nextTile) && board.IsSafe(gridCoords))
+          || board.IsWater(nextTile)) {
       return;
     }
     
@@ -285,7 +287,7 @@ public class AIController : MonoBehaviour {
     int players = 0;
     var playerPositions = new List<Vector2Int>();
     foreach (var player in GameManager.Instance.players) {
-      if (!player.Equals(gameObject)) {
+      if (player && !player.Equals(gameObject)) {
         playerPositions.Add(board.VectorToGridPosition(player.transform.position));
       }
     }

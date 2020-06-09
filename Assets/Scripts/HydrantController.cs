@@ -29,6 +29,7 @@ public class HydrantController : MonoBehaviour {
     water.transform.position = transform.position;
     WaterController wc = water.GetComponent<WaterController>();
     wc.maxLength = waterLength * GameManager.Instance.TILE_SIZE;
+    GameManager.Instance.board.SetWater(transform.position, waterLength, 1);
   }
 
   public void SetOwner(PlayerController player) {

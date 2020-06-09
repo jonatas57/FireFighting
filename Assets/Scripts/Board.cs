@@ -17,6 +17,7 @@ public class Board {
   private Vector3 yAxis;
 
   private int[][] dangerMatrix;
+  private int[][] waterMatrix;
 
   public Board(int boardSize) {
     size = boardSize;
@@ -26,10 +27,13 @@ public class Board {
     }
 
     dangerMatrix = new int[boardSize + 2][];
+    waterMatrix = new int[boardSize + 2][];
     for (int i = 0;i < boardSize + 2;i++) {
       dangerMatrix[i] = new int[boardSize + 2];
+      waterMatrix[i] = new int[boardSize + 2];
       for (int j = 0;j < boardSize + 2;j++) {
         dangerMatrix[i][j] = 0;
+        waterMatrix[i][j] = 0;
       }
     }
 
@@ -124,5 +128,27 @@ public class Board {
 
   public void SetDanger(Vector3 position, int length, int danger) {
     SetDanger(VectorToGridPosition(position), length, danger);
+  }
+
+  public void SetWater(int x, int y, int length, int water) {
+    waterMatrix[x][y] += water;
+    for (int i = 1;i <= length;i++) {
+      if (x + i < size + 2) waterMatrix[x + i][y] += water;
+      if (x - i >= 0) waterMatrix[x - i][y] += water;
+      if (y + i < size + 2) waterMatrix[x][y + i] += water;
+      if (y - i >= 0) waterMatrix[x][y - i] += water;
+    }
+  }
+
+  public void SetWater(Vector2Int grid, int length, int water) {
+    SetWater(grid.x, grid.y, length, water);
+  }
+
+  public void SetWater(Vector3 position, int length, int water) {
+    SetWater(VectorToGridPosition(position), length, water);
+  }
+
+  public bool IsWater(Vector2Int grid) {
+    return waterMatrix[grid.x][grid.y] != 0;
   }
 }

@@ -55,6 +55,7 @@ public class WaterController : MonoBehaviour {
 
     if (elapsedTime > time) {
       GameManager.Instance.board.SetDanger(transform.position, (int)maxLength / GameManager.Instance.TILE_SIZE, -1);
+      GameManager.Instance.board.SetWater(transform.position, (int)maxLength / GameManager.Instance.TILE_SIZE, -1);
       Destroy(gameObject);
     }
   }
