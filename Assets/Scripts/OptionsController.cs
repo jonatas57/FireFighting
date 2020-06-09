@@ -7,6 +7,7 @@ using System;
 public class OptionsController : MonoBehaviour
 {
 
+    private const int INF = 99999;
     public Button[] button_list;
     public int[] stateButton;
     public Text spanQtyRound;
@@ -41,11 +42,11 @@ public class OptionsController : MonoBehaviour
         startButton = button_list[6];
 
         increaseButton.onClick.AddListener(delegate {
-	       qtyRound++;
+           qtyRound = Mathf.Clamp(qtyRound+1, 1, INF);
            spanQtyRound.text = qtyRound.ToString();
 	    });
         decreaseButton.onClick.AddListener(delegate {
-	        qtyRound = Math.Max(0, qtyRound-1);
+	        qtyRound = Mathf.Clamp(qtyRound-1, 1, INF);
             spanQtyRound.text = qtyRound.ToString();
 	    });
         startButton.onClick.AddListener(delegate {
