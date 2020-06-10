@@ -166,7 +166,7 @@ public class PlayerController : MonoBehaviour {
   }
 
   private void Die() {
-    GameManager.Instance.SetWinner(id_player ^ 1);
+    GameManager.Instance.RemovePlayer(id_player);
     Destroy(gameObject);
   }
 }

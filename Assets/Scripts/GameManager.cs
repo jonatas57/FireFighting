@@ -29,6 +29,10 @@ public class GameManager : MonoBehaviour
   public int[] modeCharacters;
   public int qtyRounds;
 
+  public HashSet<int> idPlayersAlive;
+  public float timeEnd;
+  private bool flag;
+
   public static GameManager Instance
   {
     get
@@ -55,6 +59,12 @@ public class GameManager : MonoBehaviour
   public void NewGame()
   {
     SceneManager.LoadScene("GameScene");
+
+    idPlayersAlive = new HashSet<int>();
+    for(int i=0; i < numberPlayers; i++){
+      idPlayersAlive.Add(i);
+    }
+    flag = false;
   }
 
   public void ResetLevel()
@@ -78,9 +88,31 @@ public class GameManager : MonoBehaviour
     SceneManager.LoadScene("MainMenu");
   }
 
-  public void SetValues(int[] modeCharacters, int qtyRounds){
+  public void SetValues(int[] modeCharacters, int qtyRounds) {
     this.qtyRounds = qtyRounds;
     this.modeCharacters = modeCharacters;
   }
 
+  public void FixedUpdate() {
+    timeEnd -= Time.deltaTime;
+    if(timeEnd < 0 && flag){
+      flag = false;
+      foreach(int idP in idPlayersAlive) id_winner = idP;
+      GoToEndScene();
+    }
+  }
+
+  public void RemovePlayer(int id_player) {
+    if(idPlayersAlive.Count <= 1) {
+      id_winner = -10; //numero absurdo para indicar empate;
+      GoToEndScene();
+      flag = false;
+    }
+    else if(idPlayersAlive.Count <= 2){
+      timeEnd = 2;
+      flag = true;
+      idPlayersAlive.Remove(id_player);
+    }
+    idPlayersAlive.Remove(id_player);
+  }
 }
