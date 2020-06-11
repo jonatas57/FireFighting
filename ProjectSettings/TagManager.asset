@@ -8,6 +8,10 @@ TagManager:
   - Water
   - Bonus
   - VirtualHole
+  - Desciption
+  - Label
+  - Value
+  - Canvas
   layers:
   - Default
   - TransparentFX

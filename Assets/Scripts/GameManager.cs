@@ -32,6 +32,7 @@ public class GameManager : MonoBehaviour
   public HashSet<int> idPlayersAlive;
   public float timeEnd;
   private bool flag;
+  public int[] playerScore;
 
   public static GameManager Instance
   {
@@ -58,13 +59,20 @@ public class GameManager : MonoBehaviour
 
   public void NewGame()
   {
-    SceneManager.LoadScene("GameScene");
-
-    idPlayersAlive = new HashSet<int>();
-    for(int i=0; i < numberPlayers; i++){
-      idPlayersAlive.Add(i);
-    }
+    NewRound();
     flag = false;
+    playerScore = new int[4];
+    for(int i=0; i < modeCharacters.Length; i++){
+      playerScore[i] = 0;
+    }
+  }
+
+  public void NewRound(){
+    SceneManager.LoadScene("GameScene");
+    idPlayersAlive = new HashSet<int>();
+    for(int i=0; i < modeCharacters.Length; i++){
+      if(modeCharacters[i] != 2) idPlayersAlive.Add(i);
+    }
   }
 
   public void ResetLevel()
@@ -88,6 +96,14 @@ public class GameManager : MonoBehaviour
     SceneManager.LoadScene("MainMenu");
   }
 
+  public void GoToRoundScene(){
+    SceneManager.LoadScene("RoundScene");
+  }
+
+  public void GoToOptionsMenu(){
+    SceneManager.LoadScene("OptionsMenu");
+  }
+
   public void SetValues(int[] modeCharacters, int qtyRounds) {
     this.qtyRounds = qtyRounds;
     this.modeCharacters = modeCharacters;
@@ -98,14 +114,15 @@ public class GameManager : MonoBehaviour
     if(timeEnd < 0 && flag){
       flag = false;
       foreach(int idP in idPlayersAlive) id_winner = idP;
-      GoToEndScene();
+      GoToRoundScene();
+      AddScorePlayer(id_winner);
     }
   }
 
   public void RemovePlayer(int id_player) {
     if(idPlayersAlive.Count <= 1) {
       id_winner = -10; //numero absurdo para indicar empate;
-      GoToEndScene();
+      GoToRoundScene();
       flag = false;
     }
     else if(idPlayersAlive.Count <= 2){
@@ -114,5 +131,9 @@ public class GameManager : MonoBehaviour
       idPlayersAlive.Remove(id_player);
     }
     idPlayersAlive.Remove(id_player);
+  }
+
+  public void AddScorePlayer(int id_player){
+    playerScore[id_player]++;
   }
 }

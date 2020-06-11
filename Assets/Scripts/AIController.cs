@@ -101,7 +101,7 @@ public class AIController : MonoBehaviour {
     var currentTile = path[pathIndex];
     var nextTile = path[pathIndex + 1];
     if (currentTask != Task.GET_SAFE && !board.IsSafe(nextTile)) {
-      Debug.Log(currentTask + " " + nextTile + " " + board.IsSafe(nextTile));
+//      Debug.Log(currentTask + " " + nextTile + " " + board.IsSafe(nextTile));
       return;
     }
     
@@ -184,7 +184,7 @@ public class AIController : MonoBehaviour {
         path = AStar(gridCoords, hydrantPosition, board);
         pathIndex = 0;
         currentTask = Task.PLACE_HYDRANT;
-        Debug.Log("Place hydrant in " + hydrantPosition);
+      //  Debug.Log("Place hydrant in " + hydrantPosition);
       }
     }
   }
