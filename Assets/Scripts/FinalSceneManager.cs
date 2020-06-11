@@ -15,17 +15,11 @@ public class FinalSceneManager : MonoBehaviour
         content.text = "Jogador " + (GameManager.Instance.id_winner + 1) + " venceu";
         
         newGame.onClick.AddListener(delegate {
-            GameManager.Instance.NewGame();
+            GameManager.Instance.GoToOptionsMenu();
         });
 
         mainMenu.onClick.AddListener(delegate {
             GameManager.Instance.GoToMainMenu();
         });
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

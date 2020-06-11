@@ -149,6 +149,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 804db9ded8d249387a31a372d5b756ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  TILE_SIZE: 21
   playerPrefab: {fileID: 9198721394672907377, guid: 7e0883397b17321d4ad18f95481a7e86,
     type: 3}
   holePrefab: {fileID: 1196931883944921276, guid: b2ab77e56a0a87e58ba973a663246467,
@@ -158,9 +159,16 @@ MonoBehaviour:
   bonusPrefab: {fileID: 1060725507725401844, guid: d8438c222048f4c12b9f5809870b4cde,
     type: 3}
   boardSize: 12
+  numberPlayers: 2
+  players: []
+  playerType: 0100000000000000
   maxWaterTime: 0.25
   waterForce: 15
   id_winner: 0
+  modeCharacters: 
+  qtyRounds: 0
+  timeEnd: 0
+  playerScore: 
 --- !u!4 &42517968
 Transform:
   m_ObjectHideFlags: 0

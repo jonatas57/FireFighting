@@ -187,7 +187,7 @@ public class AIController : MonoBehaviour {
         path = AStar(gridCoords, hydrantPosition, board);
         pathIndex = 0;
         currentTask = Task.PLACE_HYDRANT;
-        Debug.Log("Place hydrant in " + hydrantPosition);
+      //  Debug.Log("Place hydrant in " + hydrantPosition);
       }
     }
   }

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class LevelBuilder : MonoBehaviour
 {
@@ -10,6 +11,7 @@ public class LevelBuilder : MonoBehaviour
   public GameObject holePrefab;
   public GameObject firePrefab;
   public GameObject bonusPrefab;
+  public GameObject descriptionPrefab;
   private int ii;
   private int jj;
   private int virtual_hole_qty;
@@ -30,6 +32,7 @@ public class LevelBuilder : MonoBehaviour
   private infoDirection[] info = new infoDirection[4];
 
   private void Start() {
+    RenderScore();
     BuildLevel();
     ii = 1;
     jj = 1;
@@ -46,6 +49,7 @@ public class LevelBuilder : MonoBehaviour
   }
 
   public void BuildLevel() {
+
     GameManager.Instance.ResetLevel();
     int boardSize = GameManager.Instance.boardSize;
     board = new Board(boardSize);
@@ -120,6 +124,7 @@ public class LevelBuilder : MonoBehaviour
     }
 
     GameManager.Instance.board = board;
+    
   }
 
   public void SetHole(int x, int y) {
@@ -156,6 +161,24 @@ public class LevelBuilder : MonoBehaviour
         board.SetDanger(ii, jj, 0, 1);
       }
       time_destroy = 0.2f;
+    }
+  }
+
+  public void RenderScore(){
+    int [] modeCharacters = GameManager.Instance.modeCharacters;
+    int c = 0;
+    for(int i=0; i < modeCharacters.Length; i++){
+       if(modeCharacters[i] != 2){
+          GameObject description = Instantiate<GameObject>(descriptionPrefab);
+          GameObject label = description.transform.GetChild(0).gameObject;
+          GameObject value = description.transform.GetChild(1).gameObject;
+          label.GetComponent<Text>().text = "Player " + (i+1) + ":";
+          value.GetComponent<Text>().text = "" + GameManager.Instance.playerScore[i];
+          GameObject canvas = GameObject.FindGameObjectWithTag("Canvas");
+          description.transform.SetParent(canvas.transform);
+          description.transform.position = new Vector3(720, 400-(50*c), 0);
+          c++;
+       }
     }
   }
 }
