@@ -168,18 +168,15 @@ public class AIController : MonoBehaviour {
     var safePlace = FindSafePlace();
     
     var bonusPosition = GetBonusPosition();
-    Debug.Log(gridCoords + " " + board.IsSafe(gridCoords) + " " + safePlace + " " + board.IsSafe(safePlace));
     if (!board.IsSafe(gridCoords) && safePlace.x != -1 && safePlace != gridCoords) {
       currentTask = Task.GET_SAFE;
       path = AStar(gridCoords, safePlace, board);
       pathIndex = 0;
-      Debug.Log("Safe place in " + safePlace);
     }
     else if (bonusPosition.x != -1) {
       path = AStar(gridCoords, bonusPosition, board);
       currentTask = Task.GET_BONUS;
       pathIndex = 0;
-      Debug.Log("Get bonus in " + bonusPosition);
     }
     else {
       var hydrantPosition = BestPlaceToPutHydrant();
@@ -187,7 +184,6 @@ public class AIController : MonoBehaviour {
         path = AStar(gridCoords, hydrantPosition, board);
         pathIndex = 0;
         currentTask = Task.PLACE_HYDRANT;
-      //  Debug.Log("Place hydrant in " + hydrantPosition);
       }
     }
   }

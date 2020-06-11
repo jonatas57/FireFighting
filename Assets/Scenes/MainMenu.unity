@@ -159,7 +159,7 @@ MonoBehaviour:
   bonusPrefab: {fileID: 1060725507725401844, guid: d8438c222048f4c12b9f5809870b4cde,
     type: 3}
   boardSize: 12
-  numberPlayers: 2
+  numberPlayers: 4
   players: []
   playerType: 0100000000000000
   maxWaterTime: 0.25
