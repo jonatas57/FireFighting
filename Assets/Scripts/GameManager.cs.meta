@@ -3,7 +3,13 @@ guid: 804db9ded8d249387a31a372d5b756ed
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - playerPrefab: {instanceID: 0}
+  - holePrefab: {instanceID: 0}
+  - firePrefab: {instanceID: 0}
+  - bonusPrefab: {instanceID: 0}
+  - spriteTransitionPrefab: {fileID: 6405082331708949660, guid: ec7ae7e166db540068be0a3db07c925e,
+      type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

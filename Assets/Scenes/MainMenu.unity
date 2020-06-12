@@ -158,13 +158,19 @@ MonoBehaviour:
     type: 3}
   bonusPrefab: {fileID: 1060725507725401844, guid: d8438c222048f4c12b9f5809870b4cde,
     type: 3}
+  spriteTransitionPrefab: {fileID: 6405082331708949660, guid: ec7ae7e166db540068be0a3db07c925e,
+    type: 3}
   boardSize: 12
-  numberPlayers: 4
-  players: []
-  playerType: 0100000000000000
   maxWaterTime: 0.25
   waterForce: 15
   id_winner: 0
+  numberPlayers: 4
+  defaultPositions:
+  - {x: 1, y: 1}
+  - {x: 12, y: 12}
+  - {x: 12, y: 1}
+  - {x: 1, y: 12}
+  players: []
   modeCharacters: 
   qtyRounds: 0
   timeEnd: 0

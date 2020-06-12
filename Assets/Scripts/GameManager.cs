@@ -13,6 +13,8 @@ public class GameManager : MonoBehaviour
   public GameObject holePrefab;
   public GameObject firePrefab;
   public GameObject bonusPrefab;
+  public GameObject spriteTransitionPrefab;
+  
 
 
   public Board board;
@@ -38,6 +40,9 @@ public class GameManager : MonoBehaviour
   public float timeEnd;
   private bool flag;
   public int[] playerScore;
+
+  private int stateFade;
+  GameObject sp;
 
   public static GameManager Instance
   {
@@ -73,11 +78,11 @@ public class GameManager : MonoBehaviour
   }
 
   public void NewRound(){
-    SceneManager.LoadScene("GameScene");
     idPlayersAlive = new HashSet<int>();
     for(int i=0; i < modeCharacters.Length; i++){
       if(modeCharacters[i] != 2) idPlayersAlive.Add(i);
     }
+    SceneManager.LoadScene("GameScene");
   }
 
   public void ResetLevel()
@@ -102,7 +107,7 @@ public class GameManager : MonoBehaviour
   }
 
   public void GoToRoundScene(){
-    SceneManager.LoadScene("RoundScene");
+    stateFade = 1;
   }
 
   public void GoToOptionsMenu(){
@@ -116,6 +121,12 @@ public class GameManager : MonoBehaviour
 
   public void FixedUpdate() {
     timeEnd -= Time.deltaTime;
+
+    if(stateFade != 0){
+      RenderFade();
+      return;
+    }
+
     if(timeEnd < 0 && flag){
       flag = false;
       foreach(int idP in idPlayersAlive) id_winner = idP;
@@ -140,5 +151,23 @@ public class GameManager : MonoBehaviour
 
   public void AddScorePlayer(int id_player){
     playerScore[id_player]++;
+  }
+
+  public void RenderFade(){
+    if(stateFade == 1){
+      sp = Instantiate<GameObject>(spriteTransitionPrefab);
+      stateFade = 2;
+    }
+    else{
+      Color color = sp.GetComponent<SpriteRenderer>().color;
+      if(color.a < 1){
+        color.a += 0.01f;
+        sp.GetComponent<SpriteRenderer>().color = color; 
+      }
+      else{
+        SceneManager.LoadScene("RoundScene");
+        stateFade = 0;
+      }
+    }
   }
 }

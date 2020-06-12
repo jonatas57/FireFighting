@@ -246,6 +246,8 @@ MonoBehaviour:
   time_destroy: 0
   fireBlocks: []
   bonusList: []
+  spriteTransitionPrefab: {fileID: 6405082331708949660, guid: ec7ae7e166db540068be0a3db07c925e,
+    type: 3}
 --- !u!4 &524532260
 Transform:
   m_ObjectHideFlags: 0

@@ -160,7 +160,7 @@ public class LevelBuilder : MonoBehaviour
 
         board.SetDanger(ii, jj, 0, 1);
       }
-      time_destroy = 0.2f;
+      time_destroy = 2.0f;
     }
   }
 
