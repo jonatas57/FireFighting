@@ -151,6 +151,7 @@ public class AIController : MonoBehaviour {
   }
 
   public void FixedUpdate() {
+    if(!GameManager.Instance.keyBoardActive) return;
     ResetCommands();
     if (path.Count > 0 && (path.Count - 1 != pathIndex)) {
       FollowPath();

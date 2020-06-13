@@ -42,7 +42,9 @@ public class GameManager : MonoBehaviour
   public int[] playerScore;
 
   private int stateFade;
-  GameObject sp;
+  GameObject spriteTransition;
+  string nameScene;
+  public bool keyBoardActive;
 
   public static GameManager Instance
   {
@@ -83,6 +85,9 @@ public class GameManager : MonoBehaviour
       if(modeCharacters[i] != 2) idPlayersAlive.Add(i);
     }
     SceneManager.LoadScene("GameScene");
+    nameScene = "GameScene";
+    keyBoardActive = false;
+    stateFade = 1;
   }
 
   public void ResetLevel()
@@ -108,6 +113,7 @@ public class GameManager : MonoBehaviour
 
   public void GoToRoundScene(){
     stateFade = 1;
+    nameScene = "RoundScene";
   }
 
   public void GoToOptionsMenu(){
@@ -155,19 +161,24 @@ public class GameManager : MonoBehaviour
 
   public void RenderFade(){
     if(stateFade == 1){
-      sp = Instantiate<GameObject>(spriteTransitionPrefab);
+      spriteTransition = Instantiate<GameObject>(spriteTransitionPrefab);
+      Color color = new Color();
+      if(nameScene == "RoundScene") color = new Color(0.0f, 0.0f, 0.0f, 0.0f);
+      else if(nameScene == "GameScene")  color = new Color(0.0f, 0.0f, 0.0f, 1.0f);
+      spriteTransition.GetComponent<SpriteRenderer>().color = color;
       stateFade = 2;
     }
-    else{
-      Color color = sp.GetComponent<SpriteRenderer>().color;
-      if(color.a < 1){
-        color.a += 0.01f;
-        sp.GetComponent<SpriteRenderer>().color = color; 
-      }
+    else if(stateFade == 2){
+      Color color = spriteTransition.GetComponent<SpriteRenderer>().color;
+      if(nameScene == "RoundScene" && color.a < 1) color.a += 0.01f;
+      else if(nameScene == "GameScene" && color.a > 0) color.a -= 0.01f;
       else{
-        SceneManager.LoadScene("RoundScene");
+        Destroy(spriteTransition);
+        if(nameScene == "RoundScene") SceneManager.LoadScene("RoundScene");
+        else if(nameScene == "GameScene") keyBoardActive = true;
         stateFade = 0;
       }
+      spriteTransition.GetComponent<SpriteRenderer>().color = color; 
     }
   }
 }
