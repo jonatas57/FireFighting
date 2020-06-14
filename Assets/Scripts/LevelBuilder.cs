@@ -172,11 +172,12 @@ public class LevelBuilder : MonoBehaviour
           GameObject description = Instantiate<GameObject>(descriptionPrefab);
           GameObject label = description.transform.GetChild(0).gameObject;
           GameObject value = description.transform.GetChild(1).gameObject;
-          label.GetComponent<Text>().text = "Player " + (i+1) + ":";
+          label.GetComponent<Text>().text = "Player " + (i + 1) + ":";
           value.GetComponent<Text>().text = "" + GameManager.Instance.playerScore[i];
           GameObject canvas = GameObject.FindGameObjectWithTag("Canvas");
-          description.transform.SetParent(canvas.transform);
-          description.transform.position = new Vector3(720, 400-(50*c), 0);
+          description.transform.SetParent(canvas.transform.GetChild(0).transform);
+          description.transform.localPosition = new Vector3(0, 75 - (50 * c), 0);
+          Debug.Log(description.transform.localPosition);
           c++;
        }
     }
