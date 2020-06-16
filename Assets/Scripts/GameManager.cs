@@ -170,8 +170,8 @@ public class GameManager : MonoBehaviour
     }
     else if(stateFade == 2){
       Color color = spriteTransition.GetComponent<SpriteRenderer>().color;
-      if(nameScene == "RoundScene" && color.a < 1) color.a += 0.01f;
-      else if(nameScene == "GameScene" && color.a > 0) color.a -= 0.01f;
+      if(nameScene == "RoundScene" && color.a < 1) color.a += 0.03f;
+      else if(nameScene == "GameScene" && color.a > 0) color.a -= 0.03f;
       else{
         Destroy(spriteTransition);
         if(nameScene == "RoundScene") SceneManager.LoadScene("RoundScene");

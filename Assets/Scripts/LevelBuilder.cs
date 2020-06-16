@@ -12,6 +12,7 @@ public class LevelBuilder : MonoBehaviour
   public GameObject firePrefab;
   public GameObject bonusPrefab;
   public GameObject descriptionPrefab;
+  public GameObject textPrefab;
   private int ii;
   private int jj;
   private int virtual_hole_qty;
@@ -19,6 +20,7 @@ public class LevelBuilder : MonoBehaviour
   public float time_destroy;
   public List<GameObject> fireBlocks;
   public GameObject[] bonusList;
+  private GameObject timerDisplay;
 
   struct infoDirection{
     public int ii, jj, iiNext, jjNext;
@@ -38,7 +40,7 @@ public class LevelBuilder : MonoBehaviour
     jj = 1;
     virtual_hole_qty = 0;
     id_direction = 0;
-    time_destroy = 10.0f;
+    time_destroy = 20.0f;
 
     info[0].SetAttr(0, 1, 1, -1);
     info[1].SetAttr(1, 0, -1, -1);
@@ -46,6 +48,7 @@ public class LevelBuilder : MonoBehaviour
     info[3].SetAttr(-1, 0, 1, 1);
 
     board.SetDanger(1, 1, 0, 1);
+    RenderTimer();
   }
 
   public void BuildLevel() {
@@ -145,6 +148,11 @@ public class LevelBuilder : MonoBehaviour
   }
 
   public void FixedUpdate(){
+    if(!GameManager.Instance.keyBoardActive){
+        return;
+    }
+    UpdateTimer();
+
     time_destroy -= Time.deltaTime;
     if(time_destroy < 0 && virtual_hole_qty < 144) {
       if(board.GetTile(ii, jj) != TileType.HOLE) {
@@ -160,7 +168,7 @@ public class LevelBuilder : MonoBehaviour
 
         board.SetDanger(ii, jj, 0, 1);
       }
-      time_destroy = 2.0f;
+      time_destroy = 0.2f;
     }
   }
 
@@ -181,5 +189,21 @@ public class LevelBuilder : MonoBehaviour
           c++;
        }
     }
+  }
+
+  public void RenderTimer(){
+    GameObject canvas = GameObject.FindGameObjectWithTag("Canvas");
+    GameObject label = Instantiate<GameObject>(textPrefab);
+    timerDisplay = Instantiate<GameObject>(textPrefab);
+    timerDisplay.GetComponent<Text>().text = "" + Mathf.Round(time_destroy);
+    label.GetComponent<Text>().text = "Destruição: ";
+    timerDisplay.transform.SetParent(canvas.transform.GetChild(0).transform);
+    label.transform.SetParent(canvas.transform.GetChild(0).transform);
+    timerDisplay.transform.localPosition = new Vector3(120, 180, 0);
+    label.transform.localPosition = new Vector3(30, 180, 0);
+  }
+
+  public void UpdateTimer() {
+    timerDisplay.GetComponent<Text>().text = "" + Mathf.Round(time_destroy);
   }
 }
