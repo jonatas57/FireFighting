@@ -60,7 +60,6 @@ public class PlayerController : MonoBehaviour {
   }
 
   private void FixedUpdate() {
-    if(!GameManager.Instance.keyBoardActive) return;
     if (pulledByWater) {
       rb.velocity = direction * GameManager.Instance.waterForce;
       waterTime -= Time.deltaTime;

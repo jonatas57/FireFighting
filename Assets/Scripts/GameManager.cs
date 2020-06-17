@@ -16,7 +16,6 @@ public class GameManager : MonoBehaviour
   public GameObject spriteTransitionPrefab;
   
 
-
   public Board board;
   public int boardSize = 12;
 
@@ -41,10 +40,7 @@ public class GameManager : MonoBehaviour
   private bool flag;
   public int[] playerScore;
 
-  private int stateFade;
-  GameObject spriteTransition;
-  string nameScene;
-  public bool keyBoardActive;
+  
 
   public static GameManager Instance
   {
@@ -84,10 +80,8 @@ public class GameManager : MonoBehaviour
     for(int i=0; i < modeCharacters.Length; i++){
       if(modeCharacters[i] != 2) idPlayersAlive.Add(i);
     }
+    StartCoroutine(RenderFade(true));
     SceneManager.LoadScene("GameScene");
-    nameScene = "GameScene";
-    keyBoardActive = false;
-    stateFade = 1;
   }
 
   public void ResetLevel()
@@ -111,9 +105,10 @@ public class GameManager : MonoBehaviour
     SceneManager.LoadScene("MainMenu");
   }
 
-  public void GoToRoundScene(){
-    stateFade = 1;
-    nameScene = "RoundScene";
+  public IEnumerator GoToRoundScene(){
+    StartCoroutine(RenderFade(false));
+    yield return new WaitForSeconds(0.5f);
+    SceneManager.LoadScene("RoundScene");
   }
 
   public void GoToOptionsMenu(){
@@ -128,15 +123,10 @@ public class GameManager : MonoBehaviour
   public void FixedUpdate() {
     timeEnd -= Time.deltaTime;
 
-    if(stateFade != 0){
-      RenderFade();
-      return;
-    }
-
     if(timeEnd < 0 && flag){
       flag = false;
       foreach(int idP in idPlayersAlive) id_winner = idP;
-      GoToRoundScene();
+      StartCoroutine(GoToRoundScene());
       AddScorePlayer(id_winner);
     }
   }
@@ -144,7 +134,7 @@ public class GameManager : MonoBehaviour
   public void RemovePlayer(int id_player) {
     if(idPlayersAlive.Count <= 1) {
       id_winner = -10; //numero absurdo para indicar empate;
-      GoToRoundScene();
+      StartCoroutine(GoToRoundScene());
       flag = false;
     }
     else if(idPlayersAlive.Count <= 2){
@@ -159,26 +149,29 @@ public class GameManager : MonoBehaviour
     playerScore[id_player]++;
   }
 
-  public void RenderFade(){
-    if(stateFade == 1){
-      spriteTransition = Instantiate<GameObject>(spriteTransitionPrefab);
-      Color color = new Color();
-      if(nameScene == "RoundScene") color = new Color(0.0f, 0.0f, 0.0f, 0.0f);
-      else if(nameScene == "GameScene")  color = new Color(0.0f, 0.0f, 0.0f, 1.0f);
+  public IEnumerator RenderFade(bool darkMode){
+    GameObject spriteTransition = Instantiate<GameObject>(spriteTransitionPrefab);
+    DontDestroyOnLoad(spriteTransition);
+    Color color = new Color();
+    if(darkMode){
+      color = new Color(0.0f, 0.0f, 0.0f, 1.0f);
       spriteTransition.GetComponent<SpriteRenderer>().color = color;
-      stateFade = 2;
-    }
-    else if(stateFade == 2){
-      Color color = spriteTransition.GetComponent<SpriteRenderer>().color;
-      if(nameScene == "RoundScene" && color.a < 1) color.a += 0.03f;
-      else if(nameScene == "GameScene" && color.a > 0) color.a -= 0.03f;
-      else{
-        Destroy(spriteTransition);
-        if(nameScene == "RoundScene") SceneManager.LoadScene("RoundScene");
-        else if(nameScene == "GameScene") keyBoardActive = true;
-        stateFade = 0;
+      while(color.a > 0){
+        color.a -= 0.02f;
+        spriteTransition.GetComponent<SpriteRenderer>().color = color;
+        yield return new WaitForSeconds(0.01f);
       }
-      spriteTransition.GetComponent<SpriteRenderer>().color = color; 
     }
+    else{
+      color = new Color(0.0f, 0.0f, 0.0f, 0.0f);
+      spriteTransition.GetComponent<SpriteRenderer>().color = color;
+      while(color.a < 1){
+        color.a += 0.02f;
+        spriteTransition.GetComponent<SpriteRenderer>().color = color;
+        yield return new WaitForSeconds(0.01f);
+      }
+    }
+    yield return new WaitForSeconds(0.2f);
+    Destroy(spriteTransition);
   }
 }

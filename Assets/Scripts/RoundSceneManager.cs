@@ -6,36 +6,34 @@ using System;
 
 public class RoundSceneManager : MonoBehaviour
 {
-    public float time_change_scene;
     public Text text;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-      if(GameManager.Instance.id_winner < 0) {
-        text.text = "Rodada Empatada";
-      }
-      else {
-        text.text = "O jogador " + (GameManager.Instance.id_winner+1) + " ganhou a rodada";
-      }
-      time_change_scene = 2;
+    void Start() {
+
+      StartCoroutine(_Start());
     }
 
-    // Update is called once per frame
-    private void FixedUpdate()
-    {
-       time_change_scene -= Time.deltaTime;
-        if(time_change_scene < 0){
-          int max_score = 0;
-          for(int i=0; i < GameManager.Instance.playerScore.Length; i++) {
-                max_score = Math.Max(max_score, GameManager.Instance.playerScore[i]);
-          }
-          if(max_score < GameManager.Instance.qtyRounds) {
-            GameManager.Instance.NewRound();
-          }
-          else{
-            GameManager.Instance.GoToEndScene();
-          }
-        }
+    private IEnumerator _Start(){
+      if(GameManager.Instance.id_winner < 0) text.text = "Rodada Empatada";
+      else text.text = "O jogador " + (GameManager.Instance.id_winner+1) + " ganhou a rodada";
+
+      yield return new WaitForSeconds(2.0f);
+
+      int max_score = 0;
+
+      for(int i=0; i < GameManager.Instance.playerScore.Length; i++) {
+        max_score = Math.Max(max_score, GameManager.Instance.playerScore[i]);
+      }
+
+      if(max_score < GameManager.Instance.qtyRounds) {
+        GameManager.Instance.RenderFade(false);
+        yield return new WaitForSeconds(0.5f);
+        GameManager.Instance.NewRound();
+      }
+      else{
+        GameManager.Instance.RenderFade(false);
+        yield return new WaitForSeconds(0.5f);
+        GameManager.Instance.GoToEndScene();
+      }
     }
 }

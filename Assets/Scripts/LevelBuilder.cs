@@ -148,9 +148,6 @@ public class LevelBuilder : MonoBehaviour
   }
 
   public void FixedUpdate(){
-    if(!GameManager.Instance.keyBoardActive){
-        return;
-    }
     UpdateTimer();
 
     time_destroy -= Time.deltaTime;
