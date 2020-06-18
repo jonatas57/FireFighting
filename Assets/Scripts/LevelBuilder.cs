@@ -49,6 +49,8 @@ public class LevelBuilder : MonoBehaviour
 
     board.SetDanger(1, 1, 0, 1);
     RenderTimer();
+    StartCoroutine(DestroyMap());
+    StartCoroutine(UpdateTimer());
   }
 
   public void BuildLevel() {
@@ -148,24 +150,25 @@ public class LevelBuilder : MonoBehaviour
   }
 
   public void FixedUpdate(){
-    UpdateTimer();
-
     time_destroy -= Time.deltaTime;
-    if(time_destroy < 0 && virtual_hole_qty < 144) {
-      if(board.GetTile(ii, jj) != TileType.HOLE) {
-        SetHole(ii, jj);
-        ii += info[id_direction%4].ii;
-        jj += info[id_direction%4].jj;
+  }
 
-        if(board.GetTile(ii, jj) == TileType.HOLE){
-          ii += info[id_direction%4].iiNext;
-          jj += info[id_direction%4].jjNext;
-          id_direction++;
-        }
+  public IEnumerator DestroyMap(){
+    yield return new WaitForSeconds(time_destroy);
 
-        board.SetDanger(ii, jj, 0, 1);
+    while(virtual_hole_qty < 144){
+      SetHole(ii, jj);
+      ii += info[id_direction%4].ii;
+      jj += info[id_direction%4].jj;
+
+      if(board.GetTile(ii, jj) == TileType.HOLE){
+        ii += info[id_direction%4].iiNext;
+        jj += info[id_direction%4].jjNext;
+        id_direction++;
       }
-      time_destroy = 0.2f;
+      board.SetDanger(ii, jj, 0, 1);
+
+      yield return new WaitForSeconds(0.2f);
     }
   }
 
@@ -200,7 +203,10 @@ public class LevelBuilder : MonoBehaviour
     label.transform.localPosition = new Vector3(30, 180, 0);
   }
 
-  public void UpdateTimer() {
-    timerDisplay.GetComponent<Text>().text = "" + Mathf.Round(time_destroy);
+  public IEnumerator UpdateTimer(){
+    while(true){
+        timerDisplay.GetComponent<Text>().text = "" + Mathf.Round(time_destroy);
+        yield return new WaitForSeconds(0.5f);
+    }
   }
 }
