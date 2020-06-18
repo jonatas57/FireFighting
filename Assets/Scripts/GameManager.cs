@@ -13,8 +13,6 @@ public class GameManager : MonoBehaviour
   public GameObject holePrefab;
   public GameObject firePrefab;
   public GameObject bonusPrefab;
-  public GameObject spriteTransitionPrefab;
-  
 
   public Board board;
   public int boardSize = 12;
@@ -65,9 +63,9 @@ public class GameManager : MonoBehaviour
     DontDestroyOnLoad(this);
   }
 
-  public void NewGame()
-  {
+  public void NewGame() {
     NewRound();
+    ChangeScene("GameScene");
     flag = false;
     playerScore = new int[4];
     for(int i=0; i < modeCharacters.Length; i++){
@@ -80,8 +78,6 @@ public class GameManager : MonoBehaviour
     for(int i=0; i < modeCharacters.Length; i++){
       if(modeCharacters[i] != 2) idPlayersAlive.Add(i);
     }
-    StartCoroutine(RenderFade(true));
-    SceneManager.LoadScene("GameScene");
   }
 
   public void ResetLevel()
@@ -94,25 +90,7 @@ public class GameManager : MonoBehaviour
   public void SetWinner(int id_player)
   {
     id_winner = id_player;
-    GoToEndScene();
-  }
-
-  public void GoToEndScene() {
-    SceneManager.LoadScene("EndScene");
-  }
-
-  public void GoToMainMenu() {
-    SceneManager.LoadScene("MainMenu");
-  }
-
-  public IEnumerator GoToRoundScene(){
-    StartCoroutine(RenderFade(false));
-    yield return new WaitForSeconds(0.5f);
-    SceneManager.LoadScene("RoundScene");
-  }
-
-  public void GoToOptionsMenu(){
-    SceneManager.LoadScene("OptionsMenu");
+    ChangeScene("EndScene");
   }
 
   public void SetValues(int[] modeCharacters, int qtyRounds) {
@@ -126,7 +104,7 @@ public class GameManager : MonoBehaviour
     if(timeEnd < 0 && flag){
       flag = false;
       foreach(int idP in idPlayersAlive) id_winner = idP;
-      StartCoroutine(GoToRoundScene());
+      ChangeScene("RoundScene");
       AddScorePlayer(id_winner);
     }
   }
@@ -134,7 +112,7 @@ public class GameManager : MonoBehaviour
   public void RemovePlayer(int id_player) {
     if(idPlayersAlive.Count <= 1) {
       id_winner = -10; //numero absurdo para indicar empate;
-      StartCoroutine(GoToRoundScene());
+      ChangeScene("RoundScene");
       flag = false;
     }
     else if(idPlayersAlive.Count <= 2){
@@ -149,29 +127,8 @@ public class GameManager : MonoBehaviour
     playerScore[id_player]++;
   }
 
-  public IEnumerator RenderFade(bool darkMode){
-    GameObject spriteTransition = Instantiate<GameObject>(spriteTransitionPrefab);
-    DontDestroyOnLoad(spriteTransition);
-    Color color = new Color();
-    if(darkMode){
-      color = new Color(0.0f, 0.0f, 0.0f, 1.0f);
-      spriteTransition.GetComponent<SpriteRenderer>().color = color;
-      while(color.a > 0){
-        color.a -= 0.02f;
-        spriteTransition.GetComponent<SpriteRenderer>().color = color;
-        yield return new WaitForSeconds(0.01f);
-      }
-    }
-    else{
-      color = new Color(0.0f, 0.0f, 0.0f, 0.0f);
-      spriteTransition.GetComponent<SpriteRenderer>().color = color;
-      while(color.a < 1){
-        color.a += 0.02f;
-        spriteTransition.GetComponent<SpriteRenderer>().color = color;
-        yield return new WaitForSeconds(0.01f);
-      }
-    }
-    yield return new WaitForSeconds(0.2f);
-    Destroy(spriteTransition);
+  public void ChangeScene(string nextScene) {
+    Fader fader = GameObject.FindGameObjectWithTag("Fade").GetComponent<Fader>();
+    fader.FadeOut(() => SceneManager.LoadScene(nextScene));
   }
 }

@@ -12,8 +12,7 @@ public class MainMenuManager : MonoBehaviour
 
     private void Start() {
         playButton.onClick.AddListener(delegate {
-            SceneManager.LoadScene("OptionsMenu");
-            //GameManager.Instance.NewGame();
+            GameManager.Instance.ChangeScene("OptionsMenu");
         });
 
         exitButton.onClick.AddListener(delegate {

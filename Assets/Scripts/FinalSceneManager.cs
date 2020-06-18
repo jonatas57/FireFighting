@@ -15,11 +15,11 @@ public class FinalSceneManager : MonoBehaviour
         content.text = "Jogador " + (GameManager.Instance.id_winner + 1) + " venceu";
         
         newGame.onClick.AddListener(delegate {
-            GameManager.Instance.GoToOptionsMenu();
+            GameManager.Instance.ChangeScene("OptionsScene");
         });
 
         mainMenu.onClick.AddListener(delegate {
-            GameManager.Instance.GoToMainMenu();
+            GameManager.Instance.ChangeScene("MainMenu");
         });
     }
 }

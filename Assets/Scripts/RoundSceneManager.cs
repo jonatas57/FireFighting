@@ -26,14 +26,14 @@ public class RoundSceneManager : MonoBehaviour
       }
 
       if(max_score < GameManager.Instance.qtyRounds) {
-        GameManager.Instance.RenderFade(false);
-        yield return new WaitForSeconds(0.5f);
+        // GameManager.Instance.RenderFade(false);
+        // yield return new WaitForSeconds(0.5f);
         GameManager.Instance.NewRound();
       }
       else{
-        GameManager.Instance.RenderFade(false);
-        yield return new WaitForSeconds(0.5f);
-        GameManager.Instance.GoToEndScene();
+        // GameManager.Instance.RenderFade(false);
+        // yield return new WaitForSeconds(0.5f);
+        GameManager.Instance.ChangeScene("EndScene");
       }
     }
 }

@@ -12,6 +12,7 @@ TagManager:
   - Label
   - Value
   - Canvas
+  - Fade
   layers:
   - Default
   - TransparentFX
