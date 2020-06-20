@@ -1,9 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 
 public class PlayerController : MonoBehaviour {
+
+  bool alive;
   public Board board;
   private Vector3 direction;
   public float speed;
@@ -31,6 +34,7 @@ public class PlayerController : MonoBehaviour {
   public Animator animator;
   
   private void Start() {
+    alive = true;
     speed = 50;
     direction = Vector3.zero;
     hydrantQtd = 1;
@@ -60,6 +64,7 @@ public class PlayerController : MonoBehaviour {
   }
 
   private void FixedUpdate() {
+    if (!alive) return;
     if (pulledByWater) {
       rb.velocity = direction * GameManager.Instance.waterForce;
       waterTime -= Time.deltaTime;
@@ -166,7 +171,12 @@ public class PlayerController : MonoBehaviour {
   }
 
   private void Die() {
+    alive = false;
+    animator.SetBool("alive", false);
+    animator.SetInteger("direction", -1);
     GameManager.Instance.RemovePlayer(id_player);
-    Destroy(gameObject);
+    transform.rotation = Quaternion.Euler(0, 0, 30);
+    transform.position = board.GetGridPosition(transform.position);
+    transform.DOScale(new Vector3(0.5f, 0.5f, 1f), 1).OnComplete(() => Destroy(gameObject));
   }
 }
