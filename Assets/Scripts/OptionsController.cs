@@ -82,7 +82,7 @@ public class OptionsController : MonoBehaviour
     public void StartGame(){
         int[] modeCharacters = new int[4];
         for(int i=0; i < 4; i++){
-            modeCharacters[i] = stateButton[i];
+            modeCharacters[i] = stateButton[i]%modeList.Length;
         }
         GameManager.Instance.SetValues(modeCharacters, qtyRound);
         GameManager.Instance.NewGame();

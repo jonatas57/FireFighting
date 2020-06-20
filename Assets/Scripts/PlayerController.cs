@@ -45,22 +45,25 @@ public class PlayerController : MonoBehaviour {
     animator = GetComponent<Animator>();
   }
 
-  public void SetButtons(int id_p) {
-    id_player = id_p;
-    if(id_p == 0){
+  public void SetButtons(int id_comando) {
+    if(id_comando == 0){
       upKey = KeyCode.UpArrow;
       downKey = KeyCode.DownArrow;
       leftKey = KeyCode.LeftArrow;
       rightKey = KeyCode.RightArrow;
       hydrantKey = KeyCode.Space;
     }
-    else {
+    else if(id_comando == 1){
       upKey = KeyCode.W;
       downKey = KeyCode.S;
       leftKey = KeyCode.A;
       rightKey = KeyCode.D;
       hydrantKey = KeyCode.X;
     }
+  }
+
+  public void SetIdPlayer(int id_p){
+    id_player = id_p;
   }
 
   private void FixedUpdate() {

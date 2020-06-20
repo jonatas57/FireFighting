@@ -105,10 +105,12 @@ public class LevelBuilder : MonoBehaviour
 
     // Instancia jogadores
     int numberPlayers = GameManager.Instance.numberPlayers;
+    int numberHumans = 0;
     GameManager.Instance.players = new GameObject[numberPlayers];
     for (int i = 0;i < numberPlayers;i++) {
       if (GameManager.Instance.modeCharacters[i] == 2) continue;
       GameObject playerObject = Instantiate<GameObject>(playerPrefab);
+      playerObject.GetComponent<PlayerController>().SetIdPlayer(i);
       PlayerController playerCtrlr = playerObject.GetComponent<PlayerController>();
       playerCtrlr.board = board;
       playerObject.transform.position = board.GridToVectorPosition(GameManager.Instance.defaultPositions[i]);
@@ -118,7 +120,9 @@ public class LevelBuilder : MonoBehaviour
       if (GameManager.Instance.modeCharacters[i] == 0) {
         playerObject.AddComponent<AIController>();
       }
-      else playerCtrlr.SetButtons(i);
+      else{
+        playerCtrlr.SetButtons(numberHumans++);
+      }
 
       for (int j = 0;j < i;j++) {
         if (GameManager.Instance.players[j]) {

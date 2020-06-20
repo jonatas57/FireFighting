@@ -76,7 +76,9 @@ public class GameManager : MonoBehaviour
   public void NewRound(){
     idPlayersAlive = new HashSet<int>();
     for(int i=0; i < modeCharacters.Length; i++){
-      if(modeCharacters[i] != 2) idPlayersAlive.Add(i);
+      if(modeCharacters[i] != 2){
+        idPlayersAlive.Add(i);
+      }
     }
     ChangeScene("GameScene");
   }
@@ -110,10 +112,12 @@ public class GameManager : MonoBehaviour
     }
   }
 
+
   public void RemovePlayer(int id_player) {
+    if(!idPlayersAlive.Contains(id_player)) return;
+
     if(idPlayersAlive.Count <= 1) {
       id_winner = -10; //numero absurdo para indicar empate;
-      ChangeScene("RoundScene");
       flag = false;
     }
     else if(idPlayersAlive.Count <= 2){
@@ -121,7 +125,9 @@ public class GameManager : MonoBehaviour
       flag = true;
       idPlayersAlive.Remove(id_player);
     }
-    idPlayersAlive.Remove(id_player);
+    else{
+        idPlayersAlive.Remove(id_player);
+    }
   }
 
   public void AddScorePlayer(int id_player){
