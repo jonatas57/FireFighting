@@ -66,7 +66,6 @@ public class GameManager : MonoBehaviour
 
   public void NewGame() {
     NewRound();
-    ChangeScene("GameScene");
     flag = false;
     playerScore = new int[4];
     for(int i=0; i < modeCharacters.Length; i++){
@@ -79,6 +78,7 @@ public class GameManager : MonoBehaviour
     for(int i=0; i < modeCharacters.Length; i++){
       if(modeCharacters[i] != 2) idPlayersAlive.Add(i);
     }
+    ChangeScene("GameScene");
   }
 
   public void ResetLevel()
