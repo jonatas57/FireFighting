@@ -209,7 +209,7 @@ public class LevelBuilder : MonoBehaviour
 
   public IEnumerator UpdateTimer(){
     while(true){
-        timerDisplay.GetComponent<Text>().text = "" + Mathf.Round(time_destroy);
+        timerDisplay.GetComponent<Text>().text = "" + Mathf.Max(Mathf.Round(time_destroy), 0.0f);
         yield return new WaitForSeconds(0.5f);
     }
   }
