@@ -110,7 +110,6 @@ public class LevelBuilder : MonoBehaviour
       if (GameManager.Instance.modeCharacters[i] == 2) continue;
       GameObject playerObject = Instantiate<GameObject>(playerPrefab);
       PlayerController playerCtrlr = playerObject.GetComponent<PlayerController>();
-      playerCtrlr.SetButtons(i);
       playerCtrlr.board = board;
       playerObject.transform.position = board.GridToVectorPosition(GameManager.Instance.defaultPositions[i]);
       if (i == 0) playerObject.GetComponent<SpriteRenderer>().color = new Color(1.0f, 1.0f, 1.0f, 1.0f);
@@ -119,6 +118,7 @@ public class LevelBuilder : MonoBehaviour
       if (GameManager.Instance.modeCharacters[i] == 0) {
         playerObject.AddComponent<AIController>();
       }
+      else playerCtrlr.SetButtons(i);
 
       for (int j = 0;j < i;j++) {
         if (GameManager.Instance.players[j]) {
