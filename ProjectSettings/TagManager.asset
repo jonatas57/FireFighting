@@ -13,6 +13,7 @@ TagManager:
   - Value
   - Canvas
   - Fade
+  - Audio
   layers:
   - Default
   - TransparentFX

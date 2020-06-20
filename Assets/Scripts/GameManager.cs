@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using DG.Tweening;
 
 public class GameManager : MonoBehaviour
 {
@@ -129,6 +130,10 @@ public class GameManager : MonoBehaviour
 
   public void ChangeScene(string nextScene) {
     Fader fader = GameObject.FindGameObjectWithTag("Fade").GetComponent<Fader>();
+    GameObject audioSource;
+    if ((audioSource = GameObject.FindGameObjectWithTag("Audio"))) {
+      audioSource.GetComponent<AudioSource>().DOFade(0, 1);
+    }
     fader.FadeOut(() => SceneManager.LoadScene(nextScene));
   }
 }
