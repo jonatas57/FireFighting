@@ -114,8 +114,6 @@ public class GameManager : MonoBehaviour
 
 
   public void RemovePlayer(int id_player) {
-    if(!idPlayersAlive.Contains(id_player)) return;
-
     if(idPlayersAlive.Count <= 1) {
       id_winner = -10; //numero absurdo para indicar empate;
       flag = false;
