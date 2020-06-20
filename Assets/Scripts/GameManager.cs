@@ -117,6 +117,7 @@ public class GameManager : MonoBehaviour
     if(idPlayersAlive.Count <= 1) {
       id_winner = -10; //numero absurdo para indicar empate;
       flag = false;
+      ChangeScene("RoundScene");
     }
     else if(idPlayersAlive.Count <= 2){
       timeEnd = 2;
