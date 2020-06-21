@@ -77,7 +77,7 @@ public class AIController : MonoBehaviour {
         choosenNode = i;
       } 
     }
-    return reachableNodes[choosenNode].coord;
+    return choosenNode == -1 ? (Vector2Int.one * -1) : reachableNodes[choosenNode].coord;
   }
 
   public void ResetTask() {

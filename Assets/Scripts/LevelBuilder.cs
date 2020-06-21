@@ -114,8 +114,7 @@ public class LevelBuilder : MonoBehaviour
       PlayerController playerCtrlr = playerObject.GetComponent<PlayerController>();
       playerCtrlr.board = board;
       playerObject.transform.position = board.GridToVectorPosition(GameManager.Instance.defaultPositions[i]);
-      if (i == 0) playerObject.GetComponent<SpriteRenderer>().color = new Color(1.0f, 1.0f, 1.0f, 1.0f);
-      else playerObject.GetComponent<SpriteRenderer>().color = new Color(0.5f, 0.5f, 0.5f, 1.0f);
+      playerObject.GetComponent<SpriteRenderer>().color = GameManager.Instance.playerColors[i];
 
       if (GameManager.Instance.modeCharacters[i] == 0) {
         playerObject.AddComponent<AIController>();
@@ -189,7 +188,6 @@ public class LevelBuilder : MonoBehaviour
           GameObject canvas = GameObject.FindGameObjectWithTag("Canvas");
           description.transform.SetParent(canvas.transform.GetChild(0).transform);
           description.transform.localPosition = new Vector3(0, 75 - (50 * c), 0);
-          Debug.Log(description.transform.localPosition);
           c++;
        }
     }

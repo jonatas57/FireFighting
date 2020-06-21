@@ -177,6 +177,7 @@ public class PlayerController : MonoBehaviour {
     alive = false;
     animator.SetBool("alive", false);
     animator.SetInteger("direction", -1);
+    rb.velocity = Vector3.zero;
     GameManager.Instance.RemovePlayer(id_player);
     transform.rotation = Quaternion.Euler(0, 0, 30);
     transform.position = board.GetGridPosition(transform.position);

@@ -48,6 +48,9 @@ public class HydrantController : MonoBehaviour {
     if (other.CompareTag("Water")) {
       Explode();
     }
+    else if (other.CompareTag("Hole")) {
+      Destroy(gameObject);
+    }
   }
 }
 

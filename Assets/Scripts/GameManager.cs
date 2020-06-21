@@ -30,6 +30,12 @@ public class GameManager : MonoBehaviour
     new Vector2Int(12, 1),
     new Vector2Int(1, 12)
   };
+  public Color[] playerColors = new Color[] {
+    Color.white,
+    Color.grey,
+    Color.yellow,
+    Color.green
+  };
   public GameObject[] players;
   public int[] modeCharacters;
   public int qtyRounds;
@@ -38,8 +44,6 @@ public class GameManager : MonoBehaviour
   public float timeEnd;
   private bool flag;
   public int[] playerScore;
-
-  
 
   public static GameManager Instance
   {
